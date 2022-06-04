@@ -1,10 +1,127 @@
-.flex_center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.flex_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.DoctorSection{
-    width: 100%;
-    height: 100vh;
+.DoctorSection {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 0.17fr 1fr;
+}
+.main {
+  width: 100%;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+.mainPage {
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+}
+
+/* patient page styling */
+.filterSection {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 50px;
+}
+.filters {
+  width: 50%;
+  height: 60px;
+  display: flex;
+}
+.filterItem {
+  margin-left: 30px;
+  border: 2px solid #00a77a;
+  padding: 0px 10px;
+  min-width: 130px;
+  height: 45px;
+  border-radius: 10px;
+  transition: 0.5s ease;
+  cursor: pointer;
+}
+.filterText {
+  font-size: 15px;
+  font-family: "Cairo", sans-serif;
+  margin: 0;
+  color: #616161;
 
 }
+.filterItem:hover {
+  background-color: #00a77a;
+}
+.filterItem:hover .filterText {
+  color: #fff;
+}
+.searchInput {
+  width: 250px;
+  height: 50px;
+  background-color: #00a77a14;
+  border: none;
+  padding: 0 20px;
+  border-radius: 10px;
+}
+.searchInput:focus {
+  outline: none;
+}
+.patientstable {
+  width: 100%;
+}
+.tableHeading {
+  width: 100%;
+  display: grid;
+  grid-template-columns: .5fr repeat(4, 1fr);
+  padding: 0 50px;
+  background-color: #00a77a2a;
+  height: 50px;
+  margin-top: 10px;
+  border-radius: 10px;
+  
+}
+.headingItem{
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+.headingTitle {
+  font-size: 19px;
+  color: #00a77a;
+  font-family: "Cairo", sans-serif;
+}
+.tableRow {
+  width: 100%;
+  display: grid;
+  grid-template-columns: .5fr repeat(4, 1fr);
+  padding: 0 50px;
+  background-color: #fff;
+  height: 60px;
+  margin-top: 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.101);
+
+}
+.columnItem {
+  font-size: 17px;
+  font-family: "Cairo", sans-serif;
+  color: #616161;
+  display: flex;
+}
+.tableColumn{
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.iconContainer{
+  cursor: pointer;
+  margin-right: 5px;
+}
+.active{
+  background-color: #00a77a;
+
+}
+
+
+/*PatientSection  styling*/

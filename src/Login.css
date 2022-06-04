@@ -17,6 +17,8 @@
     background-color: #fff;
     border-radius: 15px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.27);
+    flex-direction: column;
+    justify-content: flex-start !important;
 }
 .form{
     flex-direction: column;
@@ -36,6 +38,7 @@
 .LoginLogo{
     width: 20%;
     margin: 20px;
+    
 }
 .LoginTitle{
     font-size: 22px;

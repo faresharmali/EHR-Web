@@ -6,7 +6,7 @@ function App() {
   const [currentPage,setCurrentPage]=useState("Dashboard")
   return (
     <div className="App"> 
-     {currentPage=="Login" && <LoginScreen />}
+     {currentPage=="Login" && <LoginScreen setCurrentPage={setCurrentPage}/>}
      {currentPage=="Dashboard" && <DoctorSection />}
     </div>
   );

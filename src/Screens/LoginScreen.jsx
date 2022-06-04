@@ -8,10 +8,10 @@ import LoginIcon from '@mui/icons-material/Login';
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import "../Login.css";
-const LoginScreen = () => {
+const LoginScreen = ({setCurrentPage}) => {
   return (
     <section className="LoginSection flex_center">
-      <div className="formContainer">
+      <div className="formContainer flex_center">
         <img className="LoginLogo" src={Logo} alt="Logo" />
         <h1 className="LoginTitle">Log in to your account</h1>
         <div className="flex_center form">
@@ -42,7 +42,7 @@ const LoginScreen = () => {
               ),
             }}
           />
-          <Button className="LoginBtn" variant="contained">
+          <Button onClick={()=>setCurrentPage("Dashboard")} className="LoginBtn" variant="contained">
           <LoginIcon sx={{ color: "#fff",marginRight:"10px" }} />
 
             Log in

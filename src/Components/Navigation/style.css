@@ -1,5 +1,52 @@
-.sidebar{
-    width: 300px;
-    height: 100vh;
-    background-color: red;
+@import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+*{
+  box-sizing: border-box;
+}
+.sidebar {
+  width: 100%;
+  height: 100vh;
+  background-color: #00A77A;
+  display: grid;
+  grid-template-rows: .1fr 1fr;
+}
+.navigationSection {
+  width: 100%;
+  position: relative;
+  height:100%;
+}
+.navigationItem {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-left: 40px;
+    margin-bottom: 10px;
+}
+.itemTitle {
+  color: #fff;
+    text-align: left;
+    font-size: 18px;
+    margin-left: 10px;
+    font-family: 'Cairo', sans-serif;
+}
+.navigationItem:hover{
+    transition: .5s ease;
+    background-color: #e8e8e8;
+}
+.navigationItem:hover .itemTitle{
+   color: #00A77A;
+}
+
+.sideBarTitle{
+  font-family: 'Cairo', sans-serif;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+}
+.signout{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-left: 0;
+  width: 100%;
 }
