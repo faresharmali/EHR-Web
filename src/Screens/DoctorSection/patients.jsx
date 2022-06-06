@@ -4,11 +4,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 const Patients = ({navigateTo}) => {
   const [PatientList, setPatientList] = useState([
-    { name: "Fares Harmali", age: 24, lastVisit: "25/08/2022", checked: false },
-    { name: "Mokran Islam", age: 25, lastVisit: "12/04/2022", checked: false },
-    { name: "Dahmani smail", age: 23, lastVisit: "25/06/2021", checked: false },
+    { name: "Patient 1", age: 24, lastVisit: "25/08/2022", checked: false },
+    { name: "Patient 2", age: 25, lastVisit: "12/04/2022", checked: false },
+    { name: "Patient 3", age: 23, lastVisit: "25/06/2021", checked: false },
     {
-      name: "Abd el madjid smail",
+      name: "Patient 4",
       age: 23,
       lastVisit: "14/05/2022",
       checked: false,
@@ -32,9 +32,7 @@ const Patients = ({navigateTo}) => {
           <div className="filterItem flex_center">
             <h1 className="filterText">All Patients</h1>
           </div>
-          <div className="filterItem flex_center">
-            <h1 className="filterText">My Patients</h1>
-          </div>
+         
           <div className="filterItem flex_center">
             <h1 className="filterText">Recent Patients</h1>
           </div>

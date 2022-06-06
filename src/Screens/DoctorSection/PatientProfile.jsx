@@ -18,18 +18,20 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import AddReportModal from "../../Components/Modals/AddReportModal";
 const PatientProfile = () => {
+  const [showModal,setShowModal]=useState(false)
   const [PatientList, setPatientList] = useState([
-    { name: "Fares Harmali", age: 24, lastVisit: "25/08/2022", checked: false },
-    { name: "Mokran Islam", age: 25, lastVisit: "12/04/2022", checked: false },
-    { name: "Dahmani smail", age: 23, lastVisit: "25/06/2021", checked: false },
+    { name: "Patient 2", age: 25, lastVisit: "12/04/2022", checked: false },
+    { name: "Patient 3", age: 23, lastVisit: "25/06/2021", checked: false },
     {
-      name: "Abd el madjid smail",
+      name: "Patient 4",
       age: 23,
       lastVisit: "14/05/2022",
       checked: false,
     },
     { name: "Patient 5", age: 17, lastVisit: "30/05/2021", checked: false },
+
   ]);
   ChartJS.register(
     CategoryScale,
@@ -157,8 +159,8 @@ const PatientProfile = () => {
       <div className="mainContainer">
         <div className="patientData">
           <div className="PatientHeading">
-            <h2 className="patientName">Fares Harmali</h2>
-            <div className="Btn AddRecord flex_center">
+            <h2 className="patientName">Patient 1</h2>
+            <div onClick={()=>setShowModal(true)} className="Btn AddRecord flex_center">
               {" "}
               <AddIcon sx={{ color: "#fff", marginRight: "10px" }} />
               Add Record
@@ -235,6 +237,7 @@ const PatientProfile = () => {
           ))}
         </div>
       </div>
+     {showModal && <AddReportModal setShowModal={setShowModal}/>} 
     </section>
   );
 };
