@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App"> 
      {currentPage=="Login" && <LoginScreen setCurrentPage={setCurrentPage}/>}
-     {currentPage=="Dashboard" && <DoctorSection />}
+     {currentPage=="Dashboard" && <DoctorSection setCurrentPage={setCurrentPage} />}
     </div>
   );
 }

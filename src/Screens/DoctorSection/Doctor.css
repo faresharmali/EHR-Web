@@ -48,7 +48,6 @@
   font-family: "Cairo", sans-serif;
   margin: 0;
   color: #616161;
-
 }
 .filterItem:hover {
   background-color: #00a77a;
@@ -73,15 +72,14 @@
 .tableHeading {
   width: 100%;
   display: grid;
-  grid-template-columns: .5fr repeat(4, 1fr);
+  grid-template-columns: 0.5fr repeat(4, 1fr);
   padding: 0 50px;
   background-color: #00a77a2a;
   height: 50px;
   margin-top: 10px;
   border-radius: 10px;
-  
 }
-.headingItem{
+.headingItem {
   height: 50px;
   display: flex;
   align-items: center;
@@ -94,14 +92,13 @@
 .tableRow {
   width: 100%;
   display: grid;
-  grid-template-columns: .5fr repeat(4, 1fr);
+  grid-template-columns: 0.5fr repeat(4, 1fr);
   padding: 0 50px;
   background-color: #fff;
   height: 60px;
   margin-top: 10px;
   border-radius: 10px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.101);
-
 }
 .columnItem {
   font-size: 17px;
@@ -109,19 +106,135 @@
   color: #616161;
   display: flex;
 }
-.tableColumn{
+.tableColumn {
   height: 60px;
   display: flex;
   align-items: center;
 }
-.iconContainer{
+.iconContainer {
   cursor: pointer;
   margin-right: 5px;
 }
-.active{
-  background-color: #00a77a;
-
-}
-
 
 /*PatientSection  styling*/
+.PatientSection {
+}
+.mainContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 0.3fr;
+}
+.patientPagetitle {
+  font-family: "Cairo", sans-serif;
+  font-size: 19px;
+  padding: 0 20px;
+}
+.patientData {
+  width: 100%;
+  min-height: 500px;
+  padding: 0 40px;
+  border-top: 1px solid #00a77a61;
+}
+.PatientHeading {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.patientName {
+  font-family: "Cairo", sans-serif;
+  font-size: 22px;
+}
+.Btn {
+  width: 160px;
+  height: 45px;
+  background-color: #00a77a;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Cairo", sans-serif;
+}
+
+.statsContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+}
+.statHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+.headingTitel {
+  font-family: "Cairo", sans-serif;
+  font-size: 18px;
+  margin-right: 10px;
+}
+.StatValue {
+  font-family: "Cairo", sans-serif;
+  font-size: 22px;
+  margin-left: 10px;
+}
+.stat {
+  width: 100%;
+  border: 1px solid #00a77a61;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.active {
+  background-color: #00a77a;
+  color: #fff;
+}
+.Entity {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 80px;
+}
+
+.otherPatientsSection {
+  width: 100%;
+  border-top: 0.5px solid #00a77a61;
+  border-left: 0.5px solid #00a77a61;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 20px;
+}
+.patientPreview {
+  width: 90%;
+  height: 70px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.101);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.patientPreview h2 {
+  font-family: "Cairo", sans-serif;
+  font-size: 17px;
+}
+.patientPreview h3 {
+  font-family: "Cairo", sans-serif;
+  font-size: 17px;
+}
+.iconContainer {
+  margin: 0 5px;
+}
+.chartsContainer {
+  width: 50%;
+}
+.charts {
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
+}

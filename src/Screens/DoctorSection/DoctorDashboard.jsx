@@ -10,11 +10,11 @@ import DoctorSideBar from "../../Components/Navigation/DoctorSideBar";
 import Patients from "./patients";
 import PatientProfile from "./PatientProfile";
 import "./Doctor.css";
-const DoctorSection = () => {
-  const [currentPage, navigateTo] = useState("PatientProfile");
+const DoctorSection = ({setCurrentPage}) => {
+  const [currentPage, navigateTo] = useState("Patients");
   return (
     <section className="DoctorSection">
-      <DoctorSideBar />
+      <DoctorSideBar navigateTo={navigateTo} setCurrentPage={setCurrentPage}/>
       <div className="main">
         {currentPage == "Patients" && <Patients navigateTo={navigateTo} />}
         {currentPage == "PatientProfile" && <PatientProfile navigateTo={navigateTo} />}
