@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-const Users = ({navigateTo}) => {
+import AddIcon from "@mui/icons-material/Add";
+import AddUserModal from "../../Components/Modals/AddUserModal";
+const Users = ({ navigateTo }) => {
+    const [showModal,setShowModal]=useState(false)
+
   const [PatientList, setPatientList] = useState([
     { name: "Patient 1", age: 24, lastVisit: "25/08/2022", checked: false },
     { name: "Patient 2", age: 25, lastVisit: "12/04/2022", checked: false },
@@ -14,7 +18,6 @@ const Users = ({navigateTo}) => {
       checked: false,
     },
     { name: "Patient 5", age: 17, lastVisit: "30/05/2021", checked: false },
-
   ]);
   const handleChange = (event, name) => {
     setPatientList(
@@ -32,7 +35,7 @@ const Users = ({navigateTo}) => {
           <div className="filterItem flex_center">
             <h1 className="filterText">All users</h1>
           </div>
-         
+
           <div className="filterItem flex_center">
             <h1 className="filterText">Doctors</h1>
           </div>
@@ -44,6 +47,13 @@ const Users = ({navigateTo}) => {
           </div>
         </div>
         <input className="searchInput" type="text" placeholder="search" />
+      </div>
+      <div className="filterSection">
+        <div className="filters"></div>
+        <div onClick={()=>setShowModal(true)} className="Btn AddRecord flex_center">
+          <AddIcon sx={{ color: "#fff", marginRight: "5px" }} />
+          New user
+        </div>
       </div>
 
       <div className="patientstable">
@@ -91,7 +101,10 @@ const Users = ({navigateTo}) => {
             <div className="tableColumn">
               <h2 className="columnItem">
                 {" "}
-                <div onClick={()=>navigateTo("PatientProfile")} className="iconContainer">
+                <div
+                  onClick={() => navigateTo("PatientProfile")}
+                  className="iconContainer"
+                >
                   <OpenInNewIcon sx={{ color: "#00A77A" }} />
                 </div>
                 <div className="iconContainer">
@@ -102,6 +115,8 @@ const Users = ({navigateTo}) => {
           </div>
         ))}
       </div>
+      {showModal && <AddUserModal setShowModal={setShowModal}/>} 
+
     </section>
   );
 };
