@@ -46,3 +46,17 @@
     letter-spacing: 1px;
     color: #4F6466;
 }
+.alert{
+    width: 90%;
+    height: 50px;
+    background-color: #FF6B6B;
+    margin-top: 20px;
+    justify-content: flex-start !important;
+    padding-left: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.209);
+}
+.alertMessage{
+    font-size: 17px;
+    font-family: "Cairo", sans-serif;
+    color: #fff;
+}

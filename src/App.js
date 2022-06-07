@@ -2,12 +2,16 @@ import './App.css';
 import LoginScreen from './Screens/LoginScreen.jsx';
 import DoctorSection from './Screens/DoctorSection/DoctorDashboard';
 import {useState} from "react"
+import AdminSection from './Screens/AdminSection/AdminDashboard';
+import LoadingScreen from './Screens/LoadingScreen';
 function App() {
-  const [currentPage,setCurrentPage]=useState("Dashboard")
+  const [currentPage,setCurrentPage]=useState("LoadingScreen")
   return (
     <div className="App"> 
+     {currentPage=="LoadingScreen" && <LoadingScreen setCurrentPage={setCurrentPage}/>}
      {currentPage=="Login" && <LoginScreen setCurrentPage={setCurrentPage}/>}
-     {currentPage=="Dashboard" && <DoctorSection setCurrentPage={setCurrentPage} />}
+     {currentPage=="DoctorDashboard" && <DoctorSection setCurrentPage={setCurrentPage} />}
+     {currentPage=="AdminSection" && <AdminSection setCurrentPage={setCurrentPage} />}
     </div>
   );
 }

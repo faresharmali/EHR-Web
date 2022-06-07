@@ -1,0 +1,17 @@
+post http://192.168.100.3:8080/api/user
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInJvbGUiOiJhZG1pbiIsImlkIjoiYWRtaW4iLCJpYXQiOjE2NTQ1OTc1MDIsImV4cCI6MTY1NTc5NzUwMn0.VcL5KI4ErZ8oO6TG-xXV2uUnPF6rMTQQ57CgV9NmxSY
+
+   {
+      "email":"faresn@fares.com",
+    "password": "fares",
+    "role": "doctor",
+    "username": "fares081998",
+    "firstName": "fares",
+    "lastName": "harmali",
+    "birthday": "25/08/1998",
+    "contact": "0660818412",
+    "address": "bouira",
+    "org": "org" 
+}   
+    
