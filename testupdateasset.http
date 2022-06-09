@@ -1,0 +1,26 @@
+put http://192.168.100.3:8080/api/asset/69073f97-0d84-4daf-9306-7854eed6ebc5
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInJvbGUiOiJhZG1pbiIsImlkIjoiYWRtaW4iLCJpYXQiOjE2NTQ1OTc1MDIsImV4cCI6MTY1NTc5NzUwMn0.VcL5KI4ErZ8oO6TG-xXV2uUnPF6rMTQQ57CgV9NmxSY
+
+   {
+     "Allergies": "yes",
+"Allergiesprivate": true,
+"Diagnosis": "",
+"Diagnosisprivate": true,
+"bloodGroup": "",
+"bloodGroupprivate": true,
+"doctorsWithpermission": "f8edab01-efb8-4533-984f-505b77617549",
+"doctorsWithpermissionprivate": true,
+"lastVisits": "",
+"lastVisitsprivate": true,
+"radio": "",
+"radioprivate": true,
+"report": "",
+"reportprivate": true,
+"symptoms": "",
+"symptomsprivate": true,
+"treatment": "",
+"treatmentprivate": true
+
+}   
+    

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import AddUserModal from "../../Components/Modals/AddUserModal";
-import { GetUsers,DeleteUser } from "../../api/admin";
+import { GetUsers, DeleteUser } from "../../api/admin";
 import DeleteModal from "../../Components/Modals/DeleteModal";
 const Users = ({ navigateTo }) => {
   const [showModal, setShowModal] = useState(false);
@@ -18,17 +18,20 @@ const Users = ({ navigateTo }) => {
   }, []);
   const fetchUsers = async () => {
     const res = await GetUsers();
-    if (res.ok) {
+    if (res.data.ok) {
+      setPatientList(res.data.docs);
+      setAllPatientList(res.data.docs);
     }
-    setPatientList(res.data.docs);
-    setAllPatientList(res.data.docs);
   };
-  const deleteuser=async(user)=>{
-    const res=await DeleteUser({email:selectedUser._id,_rev:selectedUser._rev})
-    if(res.data.ok){
-      fetchUsers()
+  const deleteuser = async (user) => {
+    const res = await DeleteUser({
+      email: selectedUser._id,
+      _rev: selectedUser._rev,
+    });
+    if (res.data.ok) {
+      fetchUsers();
     }
-  }
+  };
 
   const filterData = (type) => {
     switch (type) {
@@ -171,7 +174,13 @@ const Users = ({ navigateTo }) => {
             <div className="tableColumn">
               <h2 className="columnItem">
                 {" "}
-                <div onClick={()=>{setSelectedUser(patient);setshowDeleteModal(true)}} className="iconContainer">
+                <div
+                  onClick={() => {
+                    setSelectedUser(patient);
+                    setshowDeleteModal(true);
+                  }}
+                  className="iconContainer"
+                >
                   <DeleteIcon sx={{ color: "#D42A2A" }} />
                 </div>
               </h2>
@@ -183,7 +192,10 @@ const Users = ({ navigateTo }) => {
         <AddUserModal fetchUsers={fetchUsers} setShowModal={setShowModal} />
       )}
       {showDeleteModal && (
-        <DeleteModal deleteuser={deleteuser} setShowModal={setshowDeleteModal} />
+        <DeleteModal
+          deleteuser={deleteuser}
+          setShowModal={setshowDeleteModal}
+        />
       )}
     </section>
   );

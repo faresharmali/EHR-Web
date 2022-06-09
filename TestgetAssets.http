@@ -1,0 +1,6 @@
+get http://192.168.100.3:8080/api/asset/hest/69073f97-0d84-4daf-9306-7854eed6ebc5
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvY3RvcjAxQGdtYWlsLmNvbSIsInJvbGUiOiJkb2N0b3IiLCJpZCI6ImY4ZWRhYjAxLWVmYjgtNDUzMy05ODRmLTUwNWI3NzYxNzU0OSIsImlhdCI6MTY1NDc1OTg5MSwiZXhwIjoxNjU1OTU5ODkxfQ.41EolgaVskm5GIP0D6VJOcRSOuAk6nsBEhQGFNmw3Sw
+
+   
+    

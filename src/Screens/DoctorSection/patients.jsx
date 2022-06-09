@@ -1,21 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-const Patients = ({navigateTo}) => {
-  const [PatientList, setPatientList] = useState([
-    { name: "Patient 1", age: 24, lastVisit: "25/08/2022", checked: false },
-    { name: "Patient 2", age: 25, lastVisit: "12/04/2022", checked: false },
-    { name: "Patient 3", age: 23, lastVisit: "25/06/2021", checked: false },
-    {
-      name: "Patient 4",
-      age: 23,
-      lastVisit: "14/05/2022",
-      checked: false,
-    },
-    { name: "Patient 5", age: 17, lastVisit: "30/05/2021", checked: false },
-
-  ]);
+import { getPatients,getPatientAsset } from "../../api/doctor";
+const Patients = ({ navigateTo }) => {
+  const [PatientList, setPatientList] = useState([]);
+  const [AllPatientList, setAllPatientList] = useState([]);
   const handleChange = (event, name) => {
     setPatientList(
       PatientList.map((p) => ({
@@ -24,7 +14,22 @@ const Patients = ({navigateTo}) => {
       }))
     );
   };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+  const fetchUsers = async () => {
+    const res = await getPatients();
+    if (res.data.ok) {
+      setPatientList(res.data.docs.filter((u)=>u.role=="patient"));
+      setAllPatientList(res.data.docs.filter((u)=>u.role=="patient"));
+    }
+  };
 
+  const getasset=async(patient)=>{
+    console.log(patient.userID)
+   const res= await  getPatientAsset(patient.userID)
+   console.log(res.data)
+  }
   return (
     <section className="mainPage patientsSection">
       <div className="filterSection">
@@ -32,7 +37,7 @@ const Patients = ({navigateTo}) => {
           <div className="filterItem flex_center">
             <h1 className="filterText">All Patients</h1>
           </div>
-         
+
           <div className="filterItem flex_center">
             <h1 className="filterText">Recent Patients</h1>
           </div>
@@ -49,10 +54,10 @@ const Patients = ({navigateTo}) => {
             <h2 className="headingTitle">Full Name</h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Age</h2>
+            <h2 className="headingTitle">Date of birth</h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Last visit</h2>
+            <h2 className="headingTitle">Phone number</h2>
           </div>
           <div className="headingItem">
             <h2 className="headingTitle">Actions</h2>
@@ -74,18 +79,24 @@ const Patients = ({navigateTo}) => {
               />
             </div>
             <div className="tableColumn">
-              <h2 className="columnItem">{patient.name}</h2>
+              <h2 className="columnItem">
+                {" "}
+                {patient.firstName + " " + patient.lastName}
+              </h2>
             </div>
             <div className="tableColumn">
-              <h2 className="columnItem">{patient.age}</h2>
+              <h2 className="columnItem">{patient.birthday}</h2>
             </div>
             <div className="tableColumn">
-              <h2 className="columnItem">{patient.lastVisit}</h2>
+              <h2 className="columnItem">{patient.contact}</h2>
             </div>
             <div className="tableColumn">
               <h2 className="columnItem">
                 {" "}
-                <div onClick={()=>navigateTo("PatientProfile")} className="iconContainer">
+                <div
+                  onClick={() => getasset(patient)}
+                  className="iconContainer"
+                >
                   <OpenInNewIcon sx={{ color: "#00A77A" }} />
                 </div>
                 <div className="iconContainer">
