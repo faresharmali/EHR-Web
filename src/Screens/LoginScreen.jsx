@@ -34,6 +34,12 @@ const LoginScreen = ({ setCurrentPage }) => {
         if(response.data.user.role=="admin") setCurrentPage("AdminSection")
         if(response.data.user.role=="doctor") setCurrentPage("DoctorDashboard")
       }
+    }else{
+      setErrorMessage("Please fill all fields");
+      setErrorMessageVisibility(true);
+      setTimeout(() => {
+        setErrorMessageVisibility(false);
+      }, 1500);
     }
   };
   return (

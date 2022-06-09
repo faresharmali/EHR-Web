@@ -23,6 +23,7 @@
 .form{
     flex-direction: column;
     padding: 30px;
+    width: 80%;
 }
 .textField{
     width: 400px !important;
@@ -30,7 +31,7 @@
 }
 .LoginBtn{
     background-color: #00A77A !important;
-    width: 150px;
+    width: 180px;
     padding: 10px !important;
     font-family: 'Kdam Thmor Pro', sans-serif;
 

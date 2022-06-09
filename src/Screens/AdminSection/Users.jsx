@@ -1,56 +1,128 @@
-import React, { useState } from "react";
-import Checkbox from "@mui/material/Checkbox";
+import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import AddIcon from "@mui/icons-material/Add";
 import AddUserModal from "../../Components/Modals/AddUserModal";
+import { GetUsers,DeleteUser } from "../../api/admin";
+import DeleteModal from "../../Components/Modals/DeleteModal";
 const Users = ({ navigateTo }) => {
-    const [showModal,setShowModal]=useState(false)
+  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setshowDeleteModal] = useState(false);
+  const [Active, setActive] = useState(1);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  const [PatientList, setPatientList] = useState([
-    { name: "Patient 1", age: 24, lastVisit: "25/08/2022", checked: false },
-    { name: "Patient 2", age: 25, lastVisit: "12/04/2022", checked: false },
-    { name: "Patient 3", age: 23, lastVisit: "25/06/2021", checked: false },
-    {
-      name: "Patient 4",
-      age: 23,
-      lastVisit: "14/05/2022",
-      checked: false,
-    },
-    { name: "Patient 5", age: 17, lastVisit: "30/05/2021", checked: false },
-  ]);
-  const handleChange = (event, name) => {
-    setPatientList(
-      PatientList.map((p) => ({
-        ...p,
-        checked: p.name == name ? event.target.checked : p.checked,
-      }))
-    );
+  const [PatientList, setPatientList] = useState([]);
+  const [AllPatientList, setAllPatientList] = useState([]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+  const fetchUsers = async () => {
+    const res = await GetUsers();
+    if (res.ok) {
+    }
+    setPatientList(res.data.docs);
+    setAllPatientList(res.data.docs);
   };
+  const deleteuser=async(user)=>{
+    const res=await DeleteUser({email:selectedUser._id,_rev:selectedUser._rev})
+    if(res.data.ok){
+      fetchUsers()
+    }
+  }
 
+  const filterData = (type) => {
+    switch (type) {
+      case "users":
+        setActive(1);
+        setPatientList(AllPatientList);
+        break;
+      case "admins":
+        setActive(2);
+        setPatientList(AllPatientList.filter((u) => u.role == "admin"));
+
+        break;
+      case "patients":
+        setActive(3);
+        setPatientList(AllPatientList.filter((u) => u.role == "patient"));
+
+        break;
+      case "doctors":
+        setActive(4);
+        setPatientList(AllPatientList.filter((u) => u.role == "doctor"));
+
+        break;
+    }
+  };
   return (
     <section className="mainPage patientsSection">
       <div className="filterSection">
         <div className="filters">
-          <div className="filterItem flex_center">
-            <h1 className="filterText">All users</h1>
+          <div
+            onClick={() => filterData("users")}
+            className={
+              Active == 1
+                ? "filterItem flex_center activeFilter"
+                : "filterItem flex_center"
+            }
+          >
+            <h1
+              className={Active == 1 ? "filterText activeFilter" : "filterText"}
+            >
+              All users
+            </h1>
           </div>
 
-          <div className="filterItem flex_center">
-            <h1 className="filterText">Doctors</h1>
+          <div
+            onClick={() => filterData("admins")}
+            className={
+              Active == 2
+                ? "filterItem flex_center activeFilter"
+                : "filterItem flex_center"
+            }
+          >
+            <h1
+              className={Active == 2 ? "filterText activeFilter" : "filterText"}
+            >
+              Admins
+            </h1>
           </div>
-          <div className="filterItem flex_center">
-            <h1 className="filterText">Patients</h1>
+          <div
+            onClick={() => filterData("patients")}
+            className={
+              Active == 3
+                ? "filterItem flex_center activeFilter"
+                : "filterItem flex_center"
+            }
+          >
+            <h1
+              className={Active == 3 ? "filterText activeFilter" : "filterText"}
+            >
+              Patients
+            </h1>
           </div>
-          <div className="filterItem flex_center">
-            <h1 className="filterText">Laboratories</h1>
+          <div
+            onClick={() => filterData("doctors")}
+            className={
+              Active == 4
+                ? "filterItem flex_center activeFilter"
+                : "filterItem flex_center"
+            }
+          >
+            <h1
+              className={Active == 4 ? "filterText activeFilter" : "filterText"}
+            >
+              Doctors
+            </h1>
           </div>
         </div>
         <input className="searchInput" type="text" placeholder="search" />
       </div>
       <div className="filterSection">
         <div className="filters"></div>
-        <div onClick={()=>setShowModal(true)} className="Btn AddRecord flex_center">
+        <div
+          onClick={() => setShowModal(true)}
+          className="Btn AddRecord flex_center"
+        >
           <AddIcon sx={{ color: "#fff", marginRight: "5px" }} />
           New user
         </div>
@@ -59,55 +131,47 @@ const Users = ({ navigateTo }) => {
       <div className="patientstable">
         <div className="tableHeading">
           <div className="headingItem">
-            <h2 className="headingTitle">Select</h2>
-          </div>
-          <div className="headingItem">
             <h2 className="headingTitle">Full Name</h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Age</h2>
+            <h2 className="headingTitle">Email</h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Last visit</h2>
+            <h2 className="headingTitle">Phone number</h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Actions</h2>
+            <h2 className="headingTitle">Date of birth</h2>
+          </div>
+          <div className="headingItem">
+            <h2 className="headingTitle">Role</h2>
+          </div>
+          <div className="headingItem">
+            <h2 className="headingTitle">Delete</h2>
           </div>
         </div>
         {PatientList.map((patient) => (
           <div className="tableRow">
             <div className="tableColumn">
-              <Checkbox
-                sx={{
-                  color: "#00a77a",
-                  "&.Mui-checked": {
-                    color: "#00a77a",
-                  },
-                }}
-                checked={patient.checked}
-                onChange={(e) => handleChange(e, patient.name)}
-                inputProps={{ "aria-label": "controlled" }}
-              />
+              <h2 className="columnItem">
+                {patient.firstName + " " + patient.lastName}
+              </h2>
             </div>
             <div className="tableColumn">
-              <h2 className="columnItem">{patient.name}</h2>
+              <h2 className="columnItem">{patient._id}</h2>
             </div>
             <div className="tableColumn">
-              <h2 className="columnItem">{patient.age}</h2>
+              <h2 className="columnItem">{patient.contact}</h2>
             </div>
             <div className="tableColumn">
-              <h2 className="columnItem">{patient.lastVisit}</h2>
+              <h2 className="columnItem">{patient.birthday}</h2>
+            </div>
+            <div className="tableColumn">
+              <h2 className="columnItem">{patient.role}</h2>
             </div>
             <div className="tableColumn">
               <h2 className="columnItem">
                 {" "}
-                <div
-                  onClick={() => navigateTo("PatientProfile")}
-                  className="iconContainer"
-                >
-                  <OpenInNewIcon sx={{ color: "#00A77A" }} />
-                </div>
-                <div className="iconContainer">
+                <div onClick={()=>{setSelectedUser(patient);setshowDeleteModal(true)}} className="iconContainer">
                   <DeleteIcon sx={{ color: "#D42A2A" }} />
                 </div>
               </h2>
@@ -115,8 +179,12 @@ const Users = ({ navigateTo }) => {
           </div>
         ))}
       </div>
-      {showModal && <AddUserModal setShowModal={setShowModal}/>} 
-
+      {showModal && (
+        <AddUserModal fetchUsers={fetchUsers} setShowModal={setShowModal} />
+      )}
+      {showDeleteModal && (
+        <DeleteModal deleteuser={deleteuser} setShowModal={setshowDeleteModal} />
+      )}
     </section>
   );
 };

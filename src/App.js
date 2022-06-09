@@ -6,12 +6,16 @@ import AdminSection from './Screens/AdminSection/AdminDashboard';
 import LoadingScreen from './Screens/LoadingScreen';
 function App() {
   const [currentPage,setCurrentPage]=useState("LoadingScreen")
+  const signOut=()=>{
+    localStorage.removeItem("loggedUser")
+    setCurrentPage("LoadingScreen")
+  }
   return (
     <div className="App"> 
      {currentPage=="LoadingScreen" && <LoadingScreen setCurrentPage={setCurrentPage}/>}
      {currentPage=="Login" && <LoginScreen setCurrentPage={setCurrentPage}/>}
-     {currentPage=="DoctorDashboard" && <DoctorSection setCurrentPage={setCurrentPage} />}
-     {currentPage=="AdminSection" && <AdminSection setCurrentPage={setCurrentPage} />}
+     {currentPage=="DoctorDashboard" && <DoctorSection signOut={signOut} setCurrentPage={setCurrentPage} />}
+     {currentPage=="AdminSection" && <AdminSection signOut={signOut} setCurrentPage={setCurrentPage} />}
     </div>
   );
 }

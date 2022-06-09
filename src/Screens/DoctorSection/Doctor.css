@@ -55,6 +55,10 @@
 .filterItem:hover .filterText {
   color: #fff;
 }
+.activeFilter {
+  background-color: #00a77a;
+  color: #fff;
+}
 .searchInput {
   width: 250px;
   height: 50px;
@@ -72,7 +76,7 @@
 .tableHeading {
   width: 100%;
   display: grid;
-  grid-template-columns: 0.5fr repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr) 0.3fr;
   padding: 0 50px;
   background-color: #00a77a2a;
   height: 50px;
@@ -92,7 +96,7 @@
 .tableRow {
   width: 100%;
   display: grid;
-  grid-template-columns: 0.5fr repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr) 0.3fr;
   padding: 0 50px;
   background-color: #fff;
   height: 60px;
@@ -270,9 +274,7 @@
   justify-content: flex-start;
   padding: 20px 0;
   left: 50%;
-  transform: translate(-50%,-50%);
-
-  
+  transform: translate(-50%, -50%);
 }
 
 @keyframes goUp {
@@ -285,17 +287,32 @@
   }
 }
 
-.ModalTitle{
+.ModalTitle {
   font-family: "Cairo", sans-serif;
-
 }
-.AddUserformContainer{
+.AddUserformContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   width: 100%;
   padding: 10px 30px;
 }
-.textField{
-width: 100% !important;
+.textField {
+  width: 100% !important;
+}
+.btnContainer {
+  width: 55%;
+  justify-content: space-between;
+}
+.cancel {
+  background-color: #fff !important;
+  border: 1px solid #00a77a !important;
+  color: #00a77a !important;
+  font-family: "Cairo", sans-serif !important;
+}
+.delete {
+  background-color: #c93030 !important;
+  border: 1px solid #c93030 !important;
+  color: #fff !important;
+  font-family: "Cairo", sans-serif !important;
 }

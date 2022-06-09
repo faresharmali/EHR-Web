@@ -2,22 +2,24 @@ import React, { Component, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import EmailIcon from "@mui/icons-material/Email";
-import LockIcon from "@mui/icons-material/Lock";
 import InputAdornment from "@mui/material/InputAdornment";
-import LoginIcon from "@mui/icons-material/Login";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import PersonIcon from "@mui/icons-material/Person";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import LockIcon from "@mui/icons-material/Lock";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FormControl from "@mui/material/FormControl";
-const AddUserModal = ({ setShowModal }) => {
+import {CreateUser} from "../../api/admin"
+const AddUserModal = ({ setShowModal,fetchUsers }) => {
+  
   const [errorMessageVisible, setErrorMessageVisibility] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [age, setAge] = React.useState("");
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+
   const [userInput, setUserInput] = useState({
     email: "",
     password: "",
@@ -32,14 +34,28 @@ const AddUserModal = ({ setShowModal }) => {
   const handleUserInput = (input, fieldName) => {
     setUserInput({ ...userInput, [fieldName]: input });
   };
-
+ const create=async()=>{
+  const res= await CreateUser(userInput)
+  if(res.data.ok){
+    fetchUsers()
+    setShowModal(false)
+  }else{
+    alert("error")
+  }
+ }
   return (
     <div onClick={() => setShowModal(false)} className="Modal">
       <div
         onClick={(e) => e.stopPropagation()}
         className="modalContent2 flex_center"
       >
-        <h2 className="ModalTitle">Create new user</h2>
+        <h2 className="ModalTitle">
+          {" "}
+          <PersonAddAlt1Icon
+            sx={{ color: "#00A77A", marginRight: "5px", marginBottom: "-3px" }}
+          />
+          Create new user
+        </h2>
         <div className="AddUserformContainer">
           <TextField
             className="textField"
@@ -49,7 +65,7 @@ const AddUserModal = ({ setShowModal }) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailIcon sx={{ color: "#00A77A" }} />
+                  <PersonIcon sx={{ color: "#00A77A" }} />
                 </InputAdornment>
               ),
             }}
@@ -63,7 +79,7 @@ const AddUserModal = ({ setShowModal }) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailIcon sx={{ color: "#00A77A" }} />
+                  <PersonIcon sx={{ color: "#00A77A" }} />
                 </InputAdornment>
               ),
             }}
@@ -77,11 +93,11 @@ const AddUserModal = ({ setShowModal }) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailIcon sx={{ color: "#00A77A" }} />
+                  <CalendarMonthIcon sx={{ color: "#00A77A" }} />
                 </InputAdornment>
               ),
             }}
-            onChange={(e) => handleUserInput(e.target.value, "email")}
+            onChange={(e) => handleUserInput(e.target.value, "birthday")}
           />
           <TextField
             className="textField"
@@ -91,13 +107,13 @@ const AddUserModal = ({ setShowModal }) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailIcon sx={{ color: "#00A77A" }} />
+                  <LocalPhoneIcon sx={{ color: "#00A77A" }} />
                 </InputAdornment>
               ),
             }}
-            onChange={(e) => handleUserInput(e.target.value, "email")}
+            onChange={(e) => handleUserInput(e.target.value, "contact")}
           />
-           <TextField
+          <TextField
             className="textField"
             id="outlined-basic"
             label="Username"
@@ -105,11 +121,11 @@ const AddUserModal = ({ setShowModal }) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailIcon sx={{ color: "#00A77A" }} />
+                  <PersonIcon sx={{ color: "#00A77A" }} />
                 </InputAdornment>
               ),
             }}
-            onChange={(e) => handleUserInput(e.target.value, "email")}
+            onChange={(e) => handleUserInput(e.target.value, "username")}
           />
           <TextField
             className="textField"
@@ -133,11 +149,12 @@ const AddUserModal = ({ setShowModal }) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailIcon sx={{ color: "#00A77A" }} />
+                  <LockIcon sx={{ color: "#00A77A" }} />
                 </InputAdornment>
               ),
             }}
-            onChange={(e) => handleUserInput(e.target.value, "email")}
+            type={"password"}
+            onChange={(e) => handleUserInput(e.target.value, "password")}
           />
           <TextField
             className="textField"
@@ -147,13 +164,15 @@ const AddUserModal = ({ setShowModal }) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailIcon sx={{ color: "#00A77A" }} />
+                  <LockIcon sx={{ color: "#00A77A" }} />
                 </InputAdornment>
               ),
             }}
-            onChange={(e) => handleUserInput(e.target.value, "email")}
+            type={"password"}
+
+            onChange={(e) => handleUserInput(e.target.value, "password")}
           />
-         
+
           <TextField
             className="textField"
             id="outlined-basic"
@@ -162,30 +181,30 @@ const AddUserModal = ({ setShowModal }) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <EmailIcon sx={{ color: "#00A77A" }} />
+                  <LocationOnIcon sx={{ color: "#00A77A" }} />
                 </InputAdornment>
               ),
             }}
-            onChange={(e) => handleUserInput(e.target.value, "email")}
+            onChange={(e) => handleUserInput(e.target.value, "address")}
           />
-          <FormControl sx={{ m: 0, width:"100%" }}>
+          <FormControl sx={{ m: 0, width: "100%" }}>
             <InputLabel id="demo-simple-select-helper-label">Role</InputLabel>
             <Select
+            onChange={(e)=>setUserInput({...userInput,role:e.target.value})}
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              value={age}
+              value={userInput.role}
               label="Age"
-              onChange={handleChange}
             >
-            
-              <MenuItem value={10}>Admin</MenuItem>
-              <MenuItem value={20}>Doctor</MenuItem>
-              <MenuItem value={30}>Patient</MenuItem>
-              <MenuItem value={30}>Laboratory</MenuItem>
+              <MenuItem value={"admin"}>Admin</MenuItem>
+              <MenuItem value={"doctor"}>Doctor</MenuItem>
+              <MenuItem value={"patient"}>Patient</MenuItem>
+              <MenuItem value={"laboratory"}>Laboratory</MenuItem>
             </Select>
           </FormControl>
         </div>
-        <Button className="LoginBtn" variant="contained">
+        <Button onClick={create} className="LoginBtn" variant="contained">
+          <PersonAddAlt1Icon sx={{ color: "#fff", marginRight: "5px" }} />
           Create user
         </Button>
       </div>

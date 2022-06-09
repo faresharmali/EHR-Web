@@ -9,11 +9,11 @@ import LockIcon from "@mui/icons-material/Lock";
 import AdminSidebar from "../../Components/Navigation/AdminSideBar";
 import Users from "./Users";
 import "../DoctorSection/Doctor.css";
-const AdminSection = ({setCurrentPage}) => {
+const AdminSection = ({setCurrentPage,signOut}) => {
   const [currentPage, navigateTo] = useState("Users");
   return (
     <section className="DoctorSection">
-      <AdminSidebar navigateTo={navigateTo} setCurrentPage={setCurrentPage}/>
+      <AdminSidebar signOut={signOut} navigateTo={navigateTo} setCurrentPage={setCurrentPage}/>
       <div className="main">
         {currentPage == "Users" && <Users navigateTo={navigateTo} />}
       </div>
