@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { CreateAsset } from "../../api/assets";
-const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
+const AddAnalysisModal = ({ setShowModal, fetchUsers, patientID }) => {
   const [errorMessageVisible, setErrorMessageVisibility] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -27,11 +27,13 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
     const res = await CreateAsset(patientID, userInput);
     console.log(res);
     if (res.data.ok) {
-      setShowModal(false)
     } else {
       alert("error");
     }
   };
+  const uploadFile=(e)=>{
+    console.log(e.target.files[0])
+  }
   return (
     <div onClick={() => setShowModal(false)} className="Modal">
       <div
@@ -41,7 +43,7 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
         <h2 className="ModalTitle">
           {" "}
        
-          Create new record
+          Create new Analysis
         </h2>
         <div className="AddUserformContainer">
           <TextField
@@ -60,37 +62,7 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
             variant="outlined"
             onChange={(e) => handleUserInput(e.target.value, "Treatement")}
           />
-          <TextField
-            className="textField"
-            id="outlined-basic"
-            label="Symtoms"
-            multiline
-            variant="outlined"
-            onChange={(e) => handleUserInput(e.target.value, "Symtoms")}
-          />
-          <TextField
-            className="textField"
-            id="outlined-basic"
-            label="Allergies"
-            multiline
-            variant="outlined"
-            onChange={(e) => handleUserInput(e.target.value, "Allergies")}
-          />
-          <TextField
-            className="textField"
-            id="outlined-basic"
-            label="BloodGroupe"
-            multiline
-            variant="outlined"
-            onChange={(e) => handleUserInput(e.target.value, "BloodGroupe")}
-          />
-          <TextField
-            id="outlined-multiline-flexible"
-            label="Report"
-            multiline
-            maxRows={4}
-            onChange={(e) => handleUserInput(e.target.value, "Report")}
-          />
+            <input type="file" onChange={uploadFile} />
         </div>
         <Button onClick={create} className="LoginBtn" variant="contained">
           <PersonAddAlt1Icon sx={{ color: "#fff", marginRight: "5px" }} />
@@ -101,4 +73,4 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
   );
 };
 
-export default AddReportModal;
+export default AddAnalysisModal;

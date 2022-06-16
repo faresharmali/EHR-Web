@@ -30,6 +30,7 @@ const AddUserModal = ({ setShowModal,fetchUsers }) => {
     contact: "",
     address: "",
     org: "org",
+    doctorswithpermission:JSON.stringify([])
   });
   const handleUserInput = (input, fieldName) => {
     setUserInput({ ...userInput, [fieldName]: input });

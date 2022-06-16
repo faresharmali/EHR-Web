@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
-import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { getPatients,getPatientAsset } from "../../api/doctor";
-const Patients = ({ navigateTo,setPatient }) => {
-  let loggedUser=JSON.parse(localStorage.getItem("loggedUser")).user
+import { getPatients, getPatientAsset } from "../../api/doctor";
+
+import RecordModal from "../../Components/Modals/RecordModal";
+const Records = ({ navigateTo, Records, Patient }) => {
+    console.log("aaaaaaa",Records)
   const [PatientList, setPatientList] = useState([]);
-  const [AllPatientList, setAllPatientList] = useState([]);
+  const [selectedRecord, setselectedRecord] = useState({});
+  const [showModal, setshowRecordModal] = useState(false);
+
+
   const handleChange = (event, name) => {
     setPatientList(
       PatientList.map((p) => ({
@@ -15,38 +19,18 @@ const Patients = ({ navigateTo,setPatient }) => {
       }))
     );
   };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-  const fetchUsers = async () => {
-    const res = await getPatients();
-    if (res.data.ok) {
-      console.log(res.data.docs)
-      setPatientList(res.data.docs.filter((u)=>u.role=="patient" && JSON.parse(u.doctorswithpermission).includes(loggedUser._id)));
-      setAllPatientList(res.data.docs.filter((u)=>u.role=="patient" && JSON.parse(u.doctorswithpermission).includes(loggedUser._id)));
-    }
-  };
 
-  const getasset=async(patient)=>{
-   const res= await  getPatientAsset(patient.userID)
-if(res.data.ok){
-  setPatient({infos:patient,records:res.data.data})
-  navigateTo("PatientProfile")
 
-}else{
-alert("not ok")
-}
-  }
   return (
     <section className="mainPage patientsSection">
       <div className="filterSection">
         <div className="filters">
           <div className="filterItem flex_center">
-            <h1 className="filterText">All Patients</h1>
+            <h1 className="filterText">All Records</h1>
           </div>
 
           <div className="filterItem flex_center">
-            <h1 className="filterText">Recent Patients</h1>
+            <h1 className="filterText">Analysis</h1>
           </div>
         </div>
         <input className="searchInput" type="text" placeholder="search" />
@@ -58,19 +42,19 @@ alert("not ok")
             <h2 className="headingTitle">Select</h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Full Name</h2>
+            <h2 className="headingTitle">Date</h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Date of birth</h2>
+            <h2 className="headingTitle">Doctor / Lab</h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Phone number</h2>
+            <h2 className="headingTitle"></h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Actions</h2>
+            <h2 className="headingTitle">show</h2>
           </div>
         </div>
-        {PatientList.map((patient) => (
+        {Records.map((record) => (
           <div className="tableRow">
             <div className="tableColumn">
               <Checkbox
@@ -80,42 +64,45 @@ alert("not ok")
                     color: "#00a77a",
                   },
                 }}
-                checked={patient.checked}
-                onChange={(e) => handleChange(e, patient.name)}
+                checked={record.checked}
+                onChange={(e) => handleChange(e, record.name)}
                 inputProps={{ "aria-label": "controlled" }}
               />
             </div>
             <div className="tableColumn">
               <h2 className="columnItem">
                 {" "}
-                {patient.firstName + " " + patient.lastName}
+                {record.firstName + " " + record.lastName}
               </h2>
             </div>
             <div className="tableColumn">
-              <h2 className="columnItem">{patient.birthday}</h2>
+              <h2 className="columnItem">{record.birthday}</h2>
             </div>
             <div className="tableColumn">
-              <h2 className="columnItem">{patient.contact}</h2>
+              <h2 className="columnItem">{record.contact}</h2>
             </div>
             <div className="tableColumn">
               <h2 className="columnItem">
                 {" "}
                 <div
-                  onClick={() => getasset(patient)}
+                  onClick={() => {setselectedRecord(record);setshowRecordModal(true)}}
                   className="iconContainer"
                 >
                   <OpenInNewIcon sx={{ color: "#00A77A" }} />
-                </div>
-                <div className="iconContainer">
-                  <DeleteIcon sx={{ color: "#D42A2A" }} />
                 </div>
               </h2>
             </div>
           </div>
         ))}
       </div>
+      {showModal && (
+        <RecordModal
+        Record={selectedRecord}
+          setShowModal={setshowRecordModal}
+        />
+      )}
     </section>
   );
 };
 
-export default Patients;
+export default Records;

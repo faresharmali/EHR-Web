@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import MedicationIcon from "@mui/icons-material/Medication";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import PhoneIcon from "@mui/icons-material/Phone";
 import PersonIcon from "@mui/icons-material/Person";
 import {
@@ -19,8 +19,10 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import AddReportModal from "../../Components/Modals/AddReportModal";
-const PatientProfile = () => {
-  const [showModal,setShowModal]=useState(false)
+import { getPatientAsset } from "../../api/doctor";
+
+const PatientProfile = ({ Patient, navigateTo,setAllRecords }) => {
+  const [showModal, setShowModal] = useState(false);
   const [PatientList, setPatientList] = useState([
     { name: "Patient 2", age: 25, lastVisit: "12/04/2022", checked: false },
     { name: "Patient 3", age: 23, lastVisit: "25/06/2021", checked: false },
@@ -31,7 +33,6 @@ const PatientProfile = () => {
       checked: false,
     },
     { name: "Patient 5", age: 17, lastVisit: "30/05/2021", checked: false },
-
   ]);
   ChartJS.register(
     CategoryScale,
@@ -42,16 +43,18 @@ const PatientProfile = () => {
     Tooltip,
     Legend
   );
-
-  const labels = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-  ];
+  useEffect( () => {
+    fetchData()
+  },[]);
+  const fetchData=async()=>{
+    const res = await getPatientAsset(Patient.infos.userID);
+    if (res.data.ok) {
+      setAllRecords(res.data.data);
+    } else {
+      alert("not ok");
+    }
+  }
+  const labels = ["1", "2", "3", "4", "5", "6", "7"];
 
   const chart1 = {
     options: {
@@ -159,11 +162,26 @@ const PatientProfile = () => {
       <div className="mainContainer">
         <div className="patientData">
           <div className="PatientHeading">
-            <h2 className="patientName">Patient 1</h2>
-            <div onClick={()=>setShowModal(true)} className="Btn AddRecord flex_center">
-              {" "}
-              <AddIcon sx={{ color: "#fff", marginRight: "10px" }} />
-              Add Record
+            <h2 className="patientName">
+              {Patient.infos.firstName + " " + Patient.infos.lastName}
+            </h2>
+            <div className="btnContainer2 flex_center">
+              <div
+                onClick={() => setShowModal(true)}
+                className="Btn AddRecord flex_center"
+              >
+                {" "}
+                <AddIcon sx={{ color: "#fff", marginRight: "10px" }} />
+                Add Record
+              </div>
+              <div
+                onClick={() => navigateTo("Records")}
+                className="Btn AddRecord flex_center"
+              >
+                {" "}
+                <OpenInFullIcon sx={{ color: "#fff", marginRight: "10px" }} />
+                Show records
+              </div>
             </div>
           </div>
 
@@ -237,7 +255,12 @@ const PatientProfile = () => {
           ))}
         </div>
       </div>
-     {showModal && <AddReportModal setShowModal={setShowModal}/>} 
+      {showModal && (
+        <AddReportModal
+          patientID={Patient.infos.userID}
+          setShowModal={setShowModal}
+        />
+      )}
     </section>
   );
 };

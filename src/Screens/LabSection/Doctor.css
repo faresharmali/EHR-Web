@@ -305,6 +305,10 @@
 .textField {
   width: 100% !important;
 }
+.btnContainer2 {
+  width:30%;
+  justify-content: space-between;
+}
 .btnContainer {
   width: 55%;
   justify-content: space-between;
@@ -320,4 +324,13 @@
   border: 1px solid #c93030 !important;
   color: #fff !important;
   font-family: "Cairo", sans-serif !important;
+}
+.recordItem{
+  font-size: 19px;
+  font-family: "Cairo", sans-serif;
+
+}
+.recordItem span{
+  font-size: 19px;
+  color: #00a77a;
 }

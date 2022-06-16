@@ -4,6 +4,7 @@ import DoctorSection from './Screens/DoctorSection/DoctorDashboard';
 import {useState} from "react"
 import AdminSection from './Screens/AdminSection/AdminDashboard';
 import LoadingScreen from './Screens/LoadingScreen';
+import LabSection from './Screens/LabSection/LabDashboard';
 function App() {
   const [currentPage,setCurrentPage]=useState("LoadingScreen")
   const signOut=()=>{
@@ -16,6 +17,7 @@ function App() {
      {currentPage=="Login" && <LoginScreen setCurrentPage={setCurrentPage}/>}
      {currentPage=="DoctorDashboard" && <DoctorSection signOut={signOut} setCurrentPage={setCurrentPage} />}
      {currentPage=="AdminSection" && <AdminSection signOut={signOut} setCurrentPage={setCurrentPage} />}
+     {currentPage=="LabSection" && <LabSection signOut={signOut} setCurrentPage={setCurrentPage} />}
     </div>
   );
 }

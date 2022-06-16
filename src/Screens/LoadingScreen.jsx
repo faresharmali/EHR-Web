@@ -9,6 +9,7 @@ useEffect(()=>{
         console.log(JSON.parse(loggedUser))
         if(JSON.parse(loggedUser).user.role=="admin") setCurrentPage("AdminSection")
         if(JSON.parse(loggedUser).user.role=="doctor") setCurrentPage("DoctorDashboard")
+        if(JSON.parse(loggedUser).user.role=="laboratory") setCurrentPage("LabSection")
     }else{
         setCurrentPage("Login")
     }

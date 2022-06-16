@@ -19,6 +19,7 @@ const Users = ({ navigateTo }) => {
   const fetchUsers = async () => {
     const res = await GetUsers();
     if (res.data.ok) {
+      console.log(res.data.docs)
       setPatientList(res.data.docs);
       setAllPatientList(res.data.docs);
     }

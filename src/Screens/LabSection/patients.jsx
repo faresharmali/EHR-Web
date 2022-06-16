@@ -2,10 +2,15 @@ import React, { useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { getPatients,getPatientAsset } from "../../api/doctor";
-const Patients = ({ navigateTo,setPatient }) => {
-  let loggedUser=JSON.parse(localStorage.getItem("loggedUser")).user
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { getPatients, getPatientAsset } from "../../api/doctor";
+import AddAnalysisModal from "../../Components/Modals/AddAnalysis";
+const Patients = ({ navigateTo, setPatient }) => {
+  let loggedUser = JSON.parse(localStorage.getItem("loggedUser")).user;
   const [PatientList, setPatientList] = useState([]);
+  const [selectedPatient, setselectedPatient] = useState({});
+  const [showAnalysisModal, setshowAnalysisModal] = useState(false);
+
   const [AllPatientList, setAllPatientList] = useState([]);
   const handleChange = (event, name) => {
     setPatientList(
@@ -21,22 +26,32 @@ const Patients = ({ navigateTo,setPatient }) => {
   const fetchUsers = async () => {
     const res = await getPatients();
     if (res.data.ok) {
-      console.log(res.data.docs)
-      setPatientList(res.data.docs.filter((u)=>u.role=="patient" && JSON.parse(u.doctorswithpermission).includes(loggedUser._id)));
-      setAllPatientList(res.data.docs.filter((u)=>u.role=="patient" && JSON.parse(u.doctorswithpermission).includes(loggedUser._id)));
+      console.log(res.data.docs);
+      setPatientList(
+        res.data.docs.filter(
+          (u) =>
+            u.role == "patient" &&
+            JSON.parse(u.doctorswithpermission).includes(loggedUser._id)
+        )
+      );
+      setAllPatientList(
+        res.data.docs.filter(
+          (u) =>
+            u.role == "patient" &&
+            JSON.parse(u.doctorswithpermission).includes(loggedUser._id)
+        )
+      );
     }
   };
 
-  const getasset=async(patient)=>{
-   const res= await  getPatientAsset(patient.userID)
-if(res.data.ok){
-  setPatient({infos:patient,records:res.data.data})
-  navigateTo("PatientProfile")
-
-}else{
-alert("not ok")
-}
-  }
+  const getasset = async (patient) => {
+    const res = await getPatientAsset(patient.userID);
+    if (res.data.ok) {
+      setPatient({ infos: patient, records: res.data.message });
+      navigateTo("PatientProfile");
+    } else {
+    }
+  };
   return (
     <section className="mainPage patientsSection">
       <div className="filterSection">
@@ -101,10 +116,13 @@ alert("not ok")
               <h2 className="columnItem">
                 {" "}
                 <div
-                  onClick={() => getasset(patient)}
+                  onClick={() => {
+                    setselectedPatient(patient);
+                    setshowAnalysisModal(true);
+                  }}
                   className="iconContainer"
                 >
-                  <OpenInNewIcon sx={{ color: "#00A77A" }} />
+                  <AddCircleIcon sx={{ color: "#00A77A" }} />
                 </div>
                 <div className="iconContainer">
                   <DeleteIcon sx={{ color: "#D42A2A" }} />
@@ -114,6 +132,12 @@ alert("not ok")
           </div>
         ))}
       </div>
+      {showAnalysisModal && (
+        <AddAnalysisModal
+          patientID={selectedPatient.userID}
+          setShowModal={setshowAnalysisModal}
+        />
+      )}
     </section>
   );
 };

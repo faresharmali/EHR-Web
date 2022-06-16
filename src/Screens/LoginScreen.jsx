@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -10,7 +10,9 @@ import LockIcon from "@mui/icons-material/Lock";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { LogUser } from "../api/auth";
 import "../Login.css";
+
 const LoginScreen = ({ setCurrentPage }) => {
+
   const [errorMessageVisible, setErrorMessageVisibility] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [userInput, setUserInput] = useState({
@@ -30,11 +32,13 @@ const LoginScreen = ({ setCurrentPage }) => {
           setErrorMessageVisibility(false);
         }, 1500);
       } else {
-        localStorage.setItem('loggedUser',JSON.stringify(response.data))
-        if(response.data.user.role=="admin") setCurrentPage("AdminSection")
-        if(response.data.user.role=="doctor") setCurrentPage("DoctorDashboard")
+        localStorage.setItem("loggedUser", JSON.stringify(response.data));
+        console.log(response.data.user)
+        if (response.data.user.role == "admin") setCurrentPage("AdminSection");
+        if (response.data.user.role == "doctor") setCurrentPage("DoctorDashboard");
+        if (response.data.user.role == "laboratory") setCurrentPage("LabSection");
       }
-    }else{
+    } else {
       setErrorMessage("Please fill all fields");
       setErrorMessageVisibility(true);
       setTimeout(() => {
@@ -42,6 +46,19 @@ const LoginScreen = ({ setCurrentPage }) => {
       }, 1500);
     }
   };
+  const HandleClick = (event) => {
+    if (event.key == "Enter") {
+      console.log(userInput)
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", HandleClick, false);
+
+    return function cleanup() {
+      document.removeEventListener("keydown", HandleClick, false);
+    };
+  }, []);
   return (
     <section className="LoginSection flex_center">
       <div className="formContainer flex_center">
