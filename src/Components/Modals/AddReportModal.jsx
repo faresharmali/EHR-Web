@@ -24,7 +24,7 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
   };
   const create = async () => {
     console.log(patientID);
-    const res = await CreateAsset(patientID, userInput);
+    const res = await CreateAsset(JSON.parse(localStorage.getItem("loggedUser")).token,patientID, userInput);
     console.log(res);
     if (res.data.ok) {
       setShowModal(false)

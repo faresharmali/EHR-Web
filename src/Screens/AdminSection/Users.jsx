@@ -17,7 +17,7 @@ const Users = ({ navigateTo }) => {
     fetchUsers();
   }, []);
   const fetchUsers = async () => {
-    const res = await GetUsers();
+    const res = await GetUsers(JSON.parse(localStorage.getItem("loggedUser")).token);
     if (res.data.ok) {
       console.log(res.data.docs)
       setPatientList(res.data.docs);
@@ -25,7 +25,7 @@ const Users = ({ navigateTo }) => {
     }
   };
   const deleteuser = async (user) => {
-    const res = await DeleteUser({
+    const res = await DeleteUser(JSON.parse(localStorage.getItem("loggedUser")).token,{
       email: selectedUser._id,
       _rev: selectedUser._rev,
     });

@@ -36,7 +36,7 @@ const AddUserModal = ({ setShowModal,fetchUsers }) => {
     setUserInput({ ...userInput, [fieldName]: input });
   };
  const create=async()=>{
-  const res= await CreateUser(userInput)
+  const res= await CreateUser(JSON.parse(localStorage.getItem("loggedUser")).token,userInput)
   if(res.data.ok){
     fetchUsers()
     setShowModal(false)

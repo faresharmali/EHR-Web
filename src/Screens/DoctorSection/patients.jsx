@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { getPatients,getPatientAsset } from "../../api/doctor";
-const Patients = ({ navigateTo,setPatient }) => {
-  let loggedUser=JSON.parse(localStorage.getItem("loggedUser")).user
+import { getPatients, getPatientAsset } from "../../api/doctor";
+const Patients = ({ navigateTo, setPatient }) => {
+  let loggedUser = JSON.parse(localStorage.getItem("loggedUser")).user;
   const [PatientList, setPatientList] = useState([]);
   const [AllPatientList, setAllPatientList] = useState([]);
   const handleChange = (event, name) => {
@@ -21,22 +21,36 @@ const Patients = ({ navigateTo,setPatient }) => {
   const fetchUsers = async () => {
     const res = await getPatients();
     if (res.data.ok) {
-      console.log(res.data.docs)
-      setPatientList(res.data.docs.filter((u)=>u.role=="patient" && JSON.parse(u.doctorswithpermission).includes(loggedUser._id)));
-      setAllPatientList(res.data.docs.filter((u)=>u.role=="patient" && JSON.parse(u.doctorswithpermission).includes(loggedUser._id)));
+      console.log(res.data.docs);
+      setPatientList(
+        res.data.docs.filter(
+          (u) =>
+            u.role == "patient" &&
+            JSON.parse(u.doctorswithpermission).includes(loggedUser._id)
+        )
+      );
+      setAllPatientList(
+        res.data.docs.filter(
+          (u) =>
+            u.role == "patient" &&
+            JSON.parse(u.doctorswithpermission).includes(loggedUser._id)
+        )
+      );
     }
   };
 
-  const getasset=async(patient)=>{
-   const res= await  getPatientAsset(patient.userID)
-if(res.data.ok){
-  setPatient({infos:patient,records:res.data.data})
-  navigateTo("PatientProfile")
-
-}else{
-alert("not ok")
-}
-  }
+  const getasset = async (patient) => {
+    const res = await getPatientAsset(
+      JSON.parse(localStorage.getItem("loggedUser")).token,
+      patient.userID
+    );
+    if (res.data.ok) {
+      setPatient({ infos: patient, records: res.data.data });
+      navigateTo("PatientProfile");
+    } else {
+      alert("not ok");
+    }
+  };
   return (
     <section className="mainPage patientsSection">
       <div className="filterSection">

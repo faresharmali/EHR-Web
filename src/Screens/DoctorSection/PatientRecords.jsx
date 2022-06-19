@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { getPatients, getPatientAsset } from "../../api/doctor";
-
+import RadioModal from "../../Components/Modals/RadioModal";
 import RecordModal from "../../Components/Modals/RecordModal";
-const Records = ({ navigateTo, Records, Patient }) => {
-    console.log("aaaaaaa",Records)
+const Records = ({ navigateTo, Patient }) => {
   const [PatientList, setPatientList] = useState([]);
   const [selectedRecord, setselectedRecord] = useState({});
+  const [RadioLink, setRadioLink] = useState({});
   const [showModal, setshowRecordModal] = useState(false);
+  const [showRadioModal, setshowRadioModal] = useState(false);
 
 
   const handleChange = (event, name) => {
@@ -20,7 +21,10 @@ const Records = ({ navigateTo, Records, Patient }) => {
     );
   };
 
-
+const OpenRadio=(Link)=>{
+  setRadioLink(Link)
+  setshowRadioModal(true)
+}
   return (
     <section className="mainPage patientsSection">
       <div className="filterSection">
@@ -54,7 +58,7 @@ const Records = ({ navigateTo, Records, Patient }) => {
             <h2 className="headingTitle">show</h2>
           </div>
         </div>
-        {Records.map((record) => (
+        {Patient.records.map((record) => (
           <div className="tableRow">
             <div className="tableColumn">
               <Checkbox
@@ -97,8 +101,15 @@ const Records = ({ navigateTo, Records, Patient }) => {
       </div>
       {showModal && (
         <RecordModal
+        OpenRadio={OpenRadio}
         Record={selectedRecord}
-          setShowModal={setshowRecordModal}
+        setShowModal={setshowRecordModal}
+        />
+      )}
+      {showRadioModal && (
+        <RadioModal
+        Link={RadioLink}
+          setShowModal={setshowRadioModal}
         />
       )}
     </section>
