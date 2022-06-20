@@ -334,3 +334,14 @@
   font-size: 19px;
   color: #00a77a;
 }
+.radioBtn {
+  width: 120px;
+  height: 40px;
+  background-color: #00a77a !important;
+  color: #fff !important;
+  font-size: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-left: 10px !important;
+  font-family: "Cairo", sans-serif !important;
+}

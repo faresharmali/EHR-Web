@@ -345,4 +345,9 @@
   font-size: 17px;
   font-family: "Cairo", sans-serif !important;
   margin-top: 50px;
+  cursor: pointer;
+}
+.Select {
+  grid-column-start: 1;
+  grid-column-end: 3;
 }

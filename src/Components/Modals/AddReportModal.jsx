@@ -10,11 +10,13 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
 
   const [userInput, setUserInput] = useState({
     Diagnosis: "",
-    Treatement: "",
+    treatment: "",
+    heartrate: "",
+    doctor: localStorage.getItem("loggedUser"),
     Symtoms: "",
     Allergies: "",
-    BloodGroupe: "",
-    Report: "",
+    BloodGroup: "",
+    report: "",
     glucose: "",
 
     lastVisits: JSON.stringify(new Date()),
@@ -23,11 +25,14 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
     setUserInput({ ...userInput, [fieldName]: input });
   };
   const create = async () => {
-    console.log(patientID);
-    const res = await CreateAsset(JSON.parse(localStorage.getItem("loggedUser")).token,patientID, userInput);
+    const res = await CreateAsset(
+      JSON.parse(localStorage.getItem("loggedUser")).token,
+      patientID,
+      userInput
+    );
     console.log(res);
     if (res.data.ok) {
-      setShowModal(false)
+      setShowModal(false);
     } else {
       alert("error");
     }
@@ -38,11 +43,7 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
         onClick={(e) => e.stopPropagation()}
         className="modalContent2 flex_center"
       >
-        <h2 className="ModalTitle">
-          {" "}
-       
-          Create new record
-        </h2>
+        <h2 className="ModalTitle"> Create new record</h2>
         <div className="AddUserformContainer">
           <TextField
             className="textField"
@@ -58,7 +59,7 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
             label="Treatement"
             multiline
             variant="outlined"
-            onChange={(e) => handleUserInput(e.target.value, "Treatement")}
+            onChange={(e) => handleUserInput(e.target.value, "treatment")}
           />
           <TextField
             className="textField"
@@ -66,7 +67,7 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
             label="Symtoms"
             multiline
             variant="outlined"
-            onChange={(e) => handleUserInput(e.target.value, "Symtoms")}
+            onChange={(e) => handleUserInput(e.target.value, "symptoms")}
           />
           <TextField
             className="textField"
@@ -82,14 +83,22 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
             label="BloodGroupe"
             multiline
             variant="outlined"
-            onChange={(e) => handleUserInput(e.target.value, "BloodGroupe")}
+            onChange={(e) => handleUserInput(e.target.value, "bloodGroup")}
+          />
+
+          <TextField
+            id="outlined-multiline-flexible"
+            label="Glucose Level"
+            multiline
+            maxRows={4}
+            onChange={(e) => handleUserInput(e.target.value, "glucose")}
           />
           <TextField
             id="outlined-multiline-flexible"
-            label="Report"
+            label="HeartRate"
             multiline
             maxRows={4}
-            onChange={(e) => handleUserInput(e.target.value, "Report")}
+            onChange={(e) => handleUserInput(e.target.value, "heartrate")}
           />
         </div>
         <Button onClick={create} className="LoginBtn" variant="contained">

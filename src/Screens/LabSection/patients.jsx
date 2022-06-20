@@ -60,11 +60,8 @@ const Patients = ({ navigateTo, setPatient }) => {
             <h1 className="filterText">All Patients</h1>
           </div>
 
-          <div className="filterItem flex_center">
-            <h1 className="filterText">Recent Patients</h1>
-          </div>
+         
         </div>
-        <input className="searchInput" type="text" placeholder="search" />
       </div>
 
       <div className="patientstable">

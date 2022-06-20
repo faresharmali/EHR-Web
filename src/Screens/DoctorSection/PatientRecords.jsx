@@ -11,7 +11,6 @@ const Records = ({ navigateTo, Patient }) => {
   const [showModal, setshowRecordModal] = useState(false);
   const [showRadioModal, setshowRadioModal] = useState(false);
 
-
   const handleChange = (event, name) => {
     setPatientList(
       PatientList.map((p) => ({
@@ -21,10 +20,11 @@ const Records = ({ navigateTo, Patient }) => {
     );
   };
 
-const OpenRadio=(Link)=>{
-  setRadioLink(Link)
-  setshowRadioModal(true)
-}
+  const OpenRadio = (Link) => {
+    setRadioLink(Link);
+    setshowRadioModal(true);
+  };
+  console.log("alll", Patient.records.slice(0, Patient.records.length - 1));
   return (
     <section className="mainPage patientsSection">
       <div className="filterSection">
@@ -58,7 +58,7 @@ const OpenRadio=(Link)=>{
             <h2 className="headingTitle">show</h2>
           </div>
         </div>
-        {Patient.records.map((record) => (
+        {Patient.records.slice(0, Patient.records.length - 1).map((record) => (
           <div className="tableRow">
             <div className="tableColumn">
               <Checkbox
@@ -76,11 +76,19 @@ const OpenRadio=(Link)=>{
             <div className="tableColumn">
               <h2 className="columnItem">
                 {" "}
-                {record.firstName + " " + record.lastName}
+                {record.lastVisits.trim() != "" &&
+                  new Date(JSON.parse(record.lastVisits)).getFullYear() +
+                    "/" +
+                    (new Date(JSON.parse(record.lastVisits)).getMonth() + 1) +
+                    "/" +
+                    new Date(JSON.parse(record.lastVisits)).getDate()}
               </h2>
             </div>
             <div className="tableColumn">
-              <h2 className="columnItem">{record.birthday}</h2>
+              <h2 className="columnItem">
+                {record.doctor.trim() != "" &&
+                  JSON.parse(record.doctor).user.firstName}
+              </h2>
             </div>
             <div className="tableColumn">
               <h2 className="columnItem">{record.contact}</h2>
@@ -89,7 +97,10 @@ const OpenRadio=(Link)=>{
               <h2 className="columnItem">
                 {" "}
                 <div
-                  onClick={() => {setselectedRecord(record);setshowRecordModal(true)}}
+                  onClick={() => {
+                    setselectedRecord(record);
+                    setshowRecordModal(true);
+                  }}
                   className="iconContainer"
                 >
                   <OpenInNewIcon sx={{ color: "#00A77A" }} />
@@ -101,16 +112,13 @@ const OpenRadio=(Link)=>{
       </div>
       {showModal && (
         <RecordModal
-        OpenRadio={OpenRadio}
-        Record={selectedRecord}
-        setShowModal={setshowRecordModal}
+          OpenRadio={OpenRadio}
+          Record={selectedRecord}
+          setShowModal={setshowRecordModal}
         />
       )}
       {showRadioModal && (
-        <RadioModal
-        Link={RadioLink}
-          setShowModal={setshowRadioModal}
-        />
+        <RadioModal Link={RadioLink} setShowModal={setshowRadioModal} />
       )}
     </section>
   );

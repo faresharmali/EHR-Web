@@ -1,24 +1,21 @@
 import React, { Component, useState } from "react";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
 const AddAnalysisModal = ({ setShowModal, fetchUsers, patientID }) => {
-  const [errorMessageVisible, setErrorMessageVisibility] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+
   const [image, setImage] = useState({ preview: "", data: "" });
 
   const [userInput, setUserInput] = useState({
-    Diagnosis: "",
-    Treatement: "",
-    Symtoms: "",
-    Allergies: "",
-    BloodGroupe: "",
-    Report: "",
-    glucose: "",
-
+    report: "",
+    Diagnosis: "none",
+    treatment: "none",
+    heartrate: "none",
+    Allergies: "none",
+    glucose: "none",
+    BloodGroup: "none",
+    symtoms: "none",
+    doctor: localStorage.getItem("loggedUser"),
     lastVisits: JSON.stringify(new Date()),
   });
   const handleUserInput = (input, fieldName) => {
@@ -30,8 +27,16 @@ const AddAnalysisModal = ({ setShowModal, fetchUsers, patientID }) => {
     e.preventDefault();
     let formData = new FormData();
     formData.append("image", image.data);
-    formData.append("report", "reportsssssssssssssssssss");
-
+    formData.append("doctor", userInput.doctor);
+    formData.append("report", userInput.report);
+    formData.append("Diagnosis", userInput.Diagnosis);
+    formData.append("treatement", userInput.report);
+    formData.append("heartrate", userInput.heartrate);
+    formData.append("symtoms", userInput.symtoms);
+    formData.append("Allergies", userInput.Allergies);
+    formData.append("BloodGroup", userInput.BloodGroup);
+    formData.append("glucose", userInput.glucose);
+    formData.append("lastVisits", new Date());
     axios
       .post("http://192.168.100.3:8081/api/asset/" + patientID, formData, {
         headers: {
@@ -39,7 +44,7 @@ const AddAnalysisModal = ({ setShowModal, fetchUsers, patientID }) => {
         },
       })
       .then((res) => {
-        console.log(res);
+        setShowModal(false);
       });
   };
   const handleFileChange = (e) => {
@@ -57,23 +62,25 @@ const AddAnalysisModal = ({ setShowModal, fetchUsers, patientID }) => {
         className="modalContent2 flex_center"
       >
         <h2 className="ModalTitle"> Create new Analysis</h2>
-        <form className="form flex_center" onSubmit={handleSubmit} enctype="multipart/form-data">
+        <form
+          className="form flex_center"
+          onSubmit={handleSubmit}
+          enctype="multipart/form-data"
+        >
           <TextField
             className="textField"
             id="outlined-basic"
             label="Report"
             variant="outlined"
             multiline
-            onChange={(e) => handleUserInput(e.target.value, "Diagnosis")}
+            onChange={(e) => handleUserInput(e.target.value, "report")}
           />
           <input type="file" name="image" onChange={handleFileChange} />
           <button className="SubmitBtn flex_center" type="submit">
-          <AddIcon sx={{ color: "#fff" }} />
-
+            <AddIcon sx={{ color: "#fff" }} />
             Add Analysis
           </button>
         </form>
-        <div className="AddUserformContainer"></div>
       </div>
     </div>
   );

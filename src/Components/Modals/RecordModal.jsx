@@ -12,9 +12,10 @@ const RecordModal = ({ setShowModal, Record, OpenRadio }) => {
         <div className="AddUserformContainer">
             <h2 className="recordItem"><span> Allergies:</span> {Record.Allergies} </h2>
             <h2 className="recordItem"><span>Diagnosis:</span> {Record.Diagnosis} </h2>
+            <h2 className="recordItem"><span>Report:</span> {Record.report} </h2>
             <h2 className="recordItem"><span>bloodGroup:</span> {Record.bloodGroup} </h2>
-            <h2 className="recordItem"><span>lastVisits:</span> {Record.lastVisits} </h2>
-            <h2 className="recordItem"><span>report:</span> <Button onClick={()=>OpenRadio(Record.radio)}>Check Radio</Button> </h2>
+            <h2 className="recordItem"><span>Date:</span> {Record.lastVisits} </h2>
+            <h2 className="recordItem"><span>Radio:</span> <Button className="radioBtn" onClick={()=>OpenRadio(Record.radio)}>Check Radio</Button> </h2>
             <h2 className="recordItem"><span>symptoms:</span> {Record.symptoms} </h2>
             <h2 className="recordItem"><span>treatment:</span> {Record.treatment} </h2>
 

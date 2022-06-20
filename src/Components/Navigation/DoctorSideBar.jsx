@@ -12,11 +12,7 @@ const DoctorSideBar = ({navigateTo,setCurrentPage,signOut}) => {
       <h1 className="sideBarTitle">My Health +</h1>
 
       <div className="navigationSection">
-        <div className="navigationItem">
-          <DashboardIcon sx={{ color: "#fff" }} />
-
-          <h2 className="itemTitle">Dashboard</h2>
-        </div>
+    
        
         <div onClick={()=>navigateTo("Patients")} className="navigationItem">
           <GroupIcon sx={{ color: "#fff" }} />

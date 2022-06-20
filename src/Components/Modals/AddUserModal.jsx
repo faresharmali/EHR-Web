@@ -13,12 +13,10 @@ import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import LockIcon from "@mui/icons-material/Lock";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FormControl from "@mui/material/FormControl";
-import {CreateUser} from "../../api/admin"
-const AddUserModal = ({ setShowModal,fetchUsers }) => {
-  
+import { CreateUser } from "../../api/admin";
+const AddUserModal = ({ setShowModal, fetchUsers }) => {
   const [errorMessageVisible, setErrorMessageVisibility] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
 
   const [userInput, setUserInput] = useState({
     email: "",
@@ -29,21 +27,25 @@ const AddUserModal = ({ setShowModal,fetchUsers }) => {
     birthday: "",
     contact: "",
     address: "",
+    speciality: "",
     org: "org",
-    doctorswithpermission:JSON.stringify([])
+    doctorswithpermission: JSON.stringify([]),
   });
   const handleUserInput = (input, fieldName) => {
     setUserInput({ ...userInput, [fieldName]: input });
   };
- const create=async()=>{
-  const res= await CreateUser(JSON.parse(localStorage.getItem("loggedUser")).token,userInput)
-  if(res.data.ok){
-    fetchUsers()
-    setShowModal(false)
-  }else{
-    alert("error")
-  }
- }
+  const create = async () => {
+    const res = await CreateUser(
+      JSON.parse(localStorage.getItem("loggedUser")).token,
+      userInput
+    );
+    if (res.data.ok) {
+      fetchUsers();
+      setShowModal(false);
+    } else {
+      alert("error");
+    }
+  };
   return (
     <div onClick={() => setShowModal(false)} className="Modal">
       <div
@@ -58,140 +60,12 @@ const AddUserModal = ({ setShowModal,fetchUsers }) => {
           Create new user
         </h2>
         <div className="AddUserformContainer">
-          <TextField
-            className="textField"
-            id="outlined-basic"
-            label="First Name"
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PersonIcon sx={{ color: "#00A77A" }} />
-                </InputAdornment>
-              ),
-            }}
-            onChange={(e) => handleUserInput(e.target.value, "firstName")}
-          />
-          <TextField
-            className="textField"
-            id="outlined-basic"
-            label="Last Name"
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PersonIcon sx={{ color: "#00A77A" }} />
-                </InputAdornment>
-              ),
-            }}
-            onChange={(e) => handleUserInput(e.target.value, "lastName")}
-          />
-          <TextField
-            className="textField"
-            id="outlined-basic"
-            label="Date of birth"
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <CalendarMonthIcon sx={{ color: "#00A77A" }} />
-                </InputAdornment>
-              ),
-            }}
-            onChange={(e) => handleUserInput(e.target.value, "birthday")}
-          />
-          <TextField
-            className="textField"
-            id="outlined-basic"
-            label="Phone number"
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LocalPhoneIcon sx={{ color: "#00A77A" }} />
-                </InputAdornment>
-              ),
-            }}
-            onChange={(e) => handleUserInput(e.target.value, "contact")}
-          />
-          <TextField
-            className="textField"
-            id="outlined-basic"
-            label="Username"
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PersonIcon sx={{ color: "#00A77A" }} />
-                </InputAdornment>
-              ),
-            }}
-            onChange={(e) => handleUserInput(e.target.value, "username")}
-          />
-          <TextField
-            className="textField"
-            id="outlined-basic"
-            label="Email"
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <EmailIcon sx={{ color: "#00A77A" }} />
-                </InputAdornment>
-              ),
-            }}
-            onChange={(e) => handleUserInput(e.target.value, "email")}
-          />
-          <TextField
-            className="textField"
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockIcon sx={{ color: "#00A77A" }} />
-                </InputAdornment>
-              ),
-            }}
-            type={"password"}
-            onChange={(e) => handleUserInput(e.target.value, "password")}
-          />
-          <TextField
-            className="textField"
-            id="outlined-basic"
-            label="Confirme password"
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockIcon sx={{ color: "#00A77A" }} />
-                </InputAdornment>
-              ),
-            }}
-            type={"password"}
-
-            onChange={(e) => handleUserInput(e.target.value, "password")}
-          />
-
-          <TextField
-            className="textField"
-            id="outlined-basic"
-            label="Address"
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LocationOnIcon sx={{ color: "#00A77A" }} />
-                </InputAdornment>
-              ),
-            }}
-            onChange={(e) => handleUserInput(e.target.value, "address")}
-          />
-          <FormControl sx={{ m: 0, width: "100%" }}>
+          <FormControl className="Select" sx={{ m: 0, width: "100%" }}>
             <InputLabel id="demo-simple-select-helper-label">Role</InputLabel>
             <Select
-            onChange={(e)=>setUserInput({...userInput,role:e.target.value})}
+              onChange={(e) =>
+                setUserInput({ ...userInput, role: e.target.value })
+              }
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={userInput.role}
@@ -203,6 +77,140 @@ const AddUserModal = ({ setShowModal,fetchUsers }) => {
               <MenuItem value={"laboratory"}>Laboratory</MenuItem>
             </Select>
           </FormControl>
+          {userInput.role.trim() != "" && (
+            <TextField
+              className="textField"
+              id="outlined-basic"
+              label="FUll Name"
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PersonIcon sx={{ color: "#00A77A" }} />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => handleUserInput(e.target.value, "firstName")}
+            />
+          )}
+
+          {userInput.role.trim() != "" && userInput.role == "patient" && (
+            <TextField
+              className="textField"
+              id="outlined-basic"
+              label="Date of birth"
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CalendarMonthIcon sx={{ color: "#00A77A" }} />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => handleUserInput(e.target.value, "birthday")}
+            />
+          )}
+          {userInput.role.trim() != "" && (
+            <TextField
+              className="textField"
+              id="outlined-basic"
+              label="Phone number"
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LocalPhoneIcon sx={{ color: "#00A77A" }} />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => handleUserInput(e.target.value, "contact")}
+            />
+          )}
+
+          {userInput.role.trim() != "" && (
+            <TextField
+              className="textField"
+              id="outlined-basic"
+              label="Username"
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PersonIcon sx={{ color: "#00A77A" }} />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => handleUserInput(e.target.value, "username")}
+            />
+          )}
+          {userInput.role.trim() != "" && (
+            <TextField
+              className="textField"
+              id="outlined-basic"
+              label="Email"
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <EmailIcon sx={{ color: "#00A77A" }} />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => handleUserInput(e.target.value, "email")}
+            />
+          )}
+
+          {userInput.role.trim() != "" && (
+            <TextField
+              className="textField"
+              id="outlined-basic"
+              label="Password"
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LockIcon sx={{ color: "#00A77A" }} />
+                  </InputAdornment>
+                ),
+              }}
+              type={"password"}
+              onChange={(e) => handleUserInput(e.target.value, "password")}
+            />
+          )}
+
+          {userInput.role.trim() != "" && (
+            <TextField
+              className="textField"
+              id="outlined-basic"
+              label="Address"
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LocationOnIcon sx={{ color: "#00A77A" }} />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => handleUserInput(e.target.value, "address")}
+            />
+          )}
+
+          {userInput.role.trim() != "" && userInput.role == "doctor" && (
+            <TextField
+              className="textField"
+              id="outlined-basic"
+              label="Speciality"
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LocationOnIcon sx={{ color: "#00A77A" }} />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => handleUserInput(e.target.value, "speciality")}
+            />
+          )}
         </div>
         <Button onClick={create} className="LoginBtn" variant="contained">
           <PersonAddAlt1Icon sx={{ color: "#fff", marginRight: "5px" }} />

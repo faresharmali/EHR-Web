@@ -15,7 +15,6 @@ export const getPatients = async (data) => {
   }
 };
 export const getPatientAsset = async (Usertoken,patient) => {
-  console.log(Usertoken)
   try {
     const res = await axios.get(api + "/asset/hest/" + patient, {
       headers: {
