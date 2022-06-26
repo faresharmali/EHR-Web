@@ -345,3 +345,16 @@
   margin-left: 10px !important;
   font-family: "Cairo", sans-serif !important;
 }
+.lab{
+  color: #3F7FBF !important;
+}
+.Labpatientstable{
+  background-color: #3f7fbf30 !important;
+}
+.filterItemlab{
+  border: 2px solid #3F7FBF !important;
+
+}
+.filterItemlab:hover {
+  background-color: #3F7FBF !important;
+}

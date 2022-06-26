@@ -56,7 +56,7 @@ const Patients = ({ navigateTo, setPatient }) => {
     <section className="mainPage patientsSection">
       <div className="filterSection">
         <div className="filters">
-          <div className="filterItem flex_center">
+          <div className="filterItem filterItemlab flex_center">
             <h1 className="filterText">All Patients</h1>
           </div>
 
@@ -64,22 +64,22 @@ const Patients = ({ navigateTo, setPatient }) => {
         </div>
       </div>
 
-      <div className="patientstable">
-        <div className="tableHeading">
+      <div className="patientstable ">
+        <div className="tableHeading Labpatientstable">
           <div className="headingItem">
-            <h2 className="headingTitle">Select</h2>
+            <h2 className="headingTitle lab">Select</h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Full Name</h2>
+            <h2 className="headingTitle lab">Full Name</h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Date of birth</h2>
+            <h2 className="headingTitle lab">Date of birth</h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Phone number</h2>
+            <h2 className="headingTitle lab">Phone number</h2>
           </div>
           <div className="headingItem">
-            <h2 className="headingTitle">Actions</h2>
+            <h2 className="headingTitle lab">Actions</h2>
           </div>
         </div>
         {PatientList.map((patient) => (
@@ -87,9 +87,9 @@ const Patients = ({ navigateTo, setPatient }) => {
             <div className="tableColumn">
               <Checkbox
                 sx={{
-                  color: "#00a77a",
+                  color: "#3F7FBF",
                   "&.Mui-checked": {
-                    color: "#00a77a",
+                    color: "#3F7FBF",
                   },
                 }}
                 checked={patient.checked}
@@ -119,7 +119,7 @@ const Patients = ({ navigateTo, setPatient }) => {
                   }}
                   className="iconContainer"
                 >
-                  <AddCircleIcon sx={{ color: "#00A77A" }} />
+                  <AddCircleIcon sx={{ color: "#3F7FBF" }} />
                 </div>
                 <div className="iconContainer">
                   <DeleteIcon sx={{ color: "#D42A2A" }} />

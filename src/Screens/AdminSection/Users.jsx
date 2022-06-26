@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import AddUserModal from "../../Components/Modals/AddUserModal";
 import { GetUsers, DeleteUser } from "../../api/admin";
 import DeleteModal from "../../Components/Modals/DeleteModal";
+import img from "../../Assets/logo.png";
 const Users = ({ navigateTo }) => {
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setshowDeleteModal] = useState(false);
@@ -17,18 +18,23 @@ const Users = ({ navigateTo }) => {
     fetchUsers();
   }, []);
   const fetchUsers = async () => {
-    const res = await GetUsers(JSON.parse(localStorage.getItem("loggedUser")).token);
+    const res = await GetUsers(
+      JSON.parse(localStorage.getItem("loggedUser")).token
+    );
     if (res.data.ok) {
-      console.log(res.data.docs)
+      console.log(res.data.docs);
       setPatientList(res.data.docs);
       setAllPatientList(res.data.docs);
     }
   };
   const deleteuser = async (user) => {
-    const res = await DeleteUser(JSON.parse(localStorage.getItem("loggedUser")).token,{
-      email: selectedUser._id,
-      _rev: selectedUser._rev,
-    });
+    const res = await DeleteUser(
+      JSON.parse(localStorage.getItem("loggedUser")).token,
+      {
+        email: selectedUser._id,
+        _rev: selectedUser._rev,
+      }
+    );
     if (res.data.ok) {
       fetchUsers();
     }

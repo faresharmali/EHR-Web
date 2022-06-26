@@ -347,6 +347,10 @@
   margin-top: 50px;
   cursor: pointer;
 }
+.btnLab{
+  background-color: #3F7FBF !important;
+
+}
 .Select {
   grid-column-start: 1;
   grid-column-end: 3;

@@ -3,9 +3,7 @@ import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
 
 const AddAnalysisModal = ({ setShowModal, fetchUsers, patientID }) => {
-
   const [image, setImage] = useState({ preview: "", data: "" });
-
   const [userInput, setUserInput] = useState({
     report: "",
     Diagnosis: "none",
@@ -38,7 +36,7 @@ const AddAnalysisModal = ({ setShowModal, fetchUsers, patientID }) => {
     formData.append("glucose", userInput.glucose);
     formData.append("lastVisits", new Date());
     axios
-      .post("http://192.168.100.3:8081/api/asset/" + patientID, formData, {
+      .post("http://192.168.106.13:8081/api/asset/" + patientID, formData, {
         headers: {
           Authorization: JSON.parse(localStorage.getItem("loggedUser")).token,
         },
@@ -76,7 +74,7 @@ const AddAnalysisModal = ({ setShowModal, fetchUsers, patientID }) => {
             onChange={(e) => handleUserInput(e.target.value, "report")}
           />
           <input type="file" name="image" onChange={handleFileChange} />
-          <button className="SubmitBtn flex_center" type="submit">
+          <button className="SubmitBtn btnLab flex_center" type="submit">
             <AddIcon sx={{ color: "#fff" }} />
             Add Analysis
           </button>

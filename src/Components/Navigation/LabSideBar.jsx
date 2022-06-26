@@ -6,7 +6,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from '@mui/icons-material/Logout';
 const LabSidebar = ({navigateTo,setCurrentPage,signOut}) => {
   return (
-    <div className="sidebar">
+    <div className="sidebar labSideBar">
       <h1 className="sideBarTitle">My Health +</h1>
 
       <div className="navigationSection">

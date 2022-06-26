@@ -76,12 +76,7 @@ const Records = ({ navigateTo, Patient }) => {
             <div className="tableColumn">
               <h2 className="columnItem">
                 {" "}
-                {record.lastVisits.trim() != "" &&
-                  new Date(JSON.parse(record.lastVisits)).getFullYear() +
-                    "/" +
-                    (new Date(JSON.parse(record.lastVisits)).getMonth() + 1) +
-                    "/" +
-                    new Date(JSON.parse(record.lastVisits)).getDate()}
+              
               </h2>
             </div>
             <div className="tableColumn">

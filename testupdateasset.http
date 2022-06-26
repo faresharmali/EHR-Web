@@ -1,4 +1,4 @@
-put http://192.168.100.3:8080/api/asset/69073f97-0d84-4daf-9306-7854eed6ebc5
+put http://192.168.106.13:8080/api/asset/69073f97-0d84-4daf-9306-7854eed6ebc5
 Content-Type: application/json
 Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInJvbGUiOiJhZG1pbiIsImlkIjoiYWRtaW4iLCJpYXQiOjE2NTQ1OTc1MDIsImV4cCI6MTY1NTc5NzUwMn0.VcL5KI4ErZ8oO6TG-xXV2uUnPF6rMTQQ57CgV9NmxSY
 
