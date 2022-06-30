@@ -21,7 +21,6 @@ const Patients = ({ navigateTo, setPatient }) => {
   const fetchUsers = async () => {
     const res = await getPatients();
     if (res.data.ok) {
-      console.log(res.data.docs);
       setPatientList(
         res.data.docs.filter(
           (u) =>
@@ -58,10 +57,9 @@ const Patients = ({ navigateTo, setPatient }) => {
           <div className="filterItem flex_center">
             <h1 className="filterText">All Patients</h1>
           </div>
-
-          <div className="filterItem flex_center">
-            <h1 className="filterText">Recent Patients</h1>
-          </div>
+        </div>
+        <div onClick={fetchUsers} className="Btn  flex_center">
+          <h1 className="filterText btnText">Refresh</h1>
         </div>
       </div>
 
@@ -118,9 +116,6 @@ const Patients = ({ navigateTo, setPatient }) => {
                   className="iconContainer"
                 >
                   <OpenInNewIcon sx={{ color: "#00A77A" }} />
-                </div>
-                <div className="iconContainer">
-                  <DeleteIcon sx={{ color: "#D42A2A" }} />
                 </div>
               </h2>
             </div>

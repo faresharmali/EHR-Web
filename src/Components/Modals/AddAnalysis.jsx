@@ -13,6 +13,7 @@ const AddAnalysisModal = ({ setShowModal, fetchUsers, patientID }) => {
     glucose: "none",
     BloodGroup: "none",
     symtoms: "none",
+    type:"radio",
     doctor: localStorage.getItem("loggedUser"),
     lastVisits: JSON.stringify(new Date()),
   });
@@ -34,9 +35,11 @@ const AddAnalysisModal = ({ setShowModal, fetchUsers, patientID }) => {
     formData.append("Allergies", userInput.Allergies);
     formData.append("BloodGroup", userInput.BloodGroup);
     formData.append("glucose", userInput.glucose);
-    formData.append("lastVisits", new Date());
+    formData.append("lastVisits", JSON.stringify(new Date()));
+    formData.append("type","radio");
+
     axios
-      .post("http://192.168.106.13:8081/api/asset/" + patientID, formData, {
+      .post("http://192.168.100.3:8081/api/asset/" + patientID, formData, {
         headers: {
           Authorization: JSON.parse(localStorage.getItem("loggedUser")).token,
         },

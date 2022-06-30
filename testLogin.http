@@ -1,4 +1,4 @@
-post http://192.168.106.13:8080/api/auth/login
+post http://192.168.100.3:8080/api/auth/login
 Content-Type: application/json
 
    {

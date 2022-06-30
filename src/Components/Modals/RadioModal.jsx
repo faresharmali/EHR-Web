@@ -8,7 +8,7 @@ const RadioModal = ({ setShowModal, Link }) => {
         onClick={(e) => e.stopPropagation()}
         className="modalContent3 flex_center"
       >
-        <img className="Radio" alt="hello" src={"http://192.168.106.13:8081/" + Link} />
+        <img className="Radio" alt="hello" src={"http://192.168.100.3:8081/" + Link} />
       </div>
     </div>
   );

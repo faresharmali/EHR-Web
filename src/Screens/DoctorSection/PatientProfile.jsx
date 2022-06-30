@@ -21,7 +21,7 @@ import { Line } from "react-chartjs-2";
 import AddReportModal from "../../Components/Modals/AddReportModal";
 import { getPatientAsset } from "../../api/doctor";
 
-const PatientProfile = ({ Patient, navigateTo,setAllRecords }) => {
+const PatientProfile = ({ Patient, navigateTo, setPatient }) => {
   const [showModal, setShowModal] = useState(false);
   const [PatientList, setPatientList] = useState([
     { name: "Patient 2", age: 25, lastVisit: "12/04/2022", checked: false },
@@ -43,17 +43,20 @@ const PatientProfile = ({ Patient, navigateTo,setAllRecords }) => {
     Tooltip,
     Legend
   );
-  useEffect( () => {
-    fetchData()
-  },[]);
-  const fetchData=async()=>{
-    const res = await getPatientAsset(Patient.infos.userID);
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    const res = await getPatientAsset(
+      JSON.parse(localStorage.getItem("loggedUser")).token,
+      Patient.infos.userID
+    );
     if (res.data.ok) {
-      setAllRecords(res.data.data);
+      setPatient({ infos: Patient.infos, records: res.data.data });
     } else {
       alert("not ok");
     }
-  }
+  };
   const labels = ["1", "2", "3", "4", "5", "6", "7"];
 
   const chart1 = {
@@ -259,6 +262,7 @@ const PatientProfile = ({ Patient, navigateTo,setAllRecords }) => {
         <AddReportModal
           patientID={Patient.infos.userID}
           setShowModal={setShowModal}
+          fetchData={fetchData}
         />
       )}
     </section>

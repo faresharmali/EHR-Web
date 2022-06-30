@@ -3,7 +3,7 @@ import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { getPatients, getPatientAsset } from "../../api/doctor";
+import { getPatients } from "../../api/doctor";
 import AddAnalysisModal from "../../Components/Modals/AddAnalysis";
 const Patients = ({ navigateTo, setPatient }) => {
   let loggedUser = JSON.parse(localStorage.getItem("loggedUser")).user;
@@ -44,14 +44,7 @@ const Patients = ({ navigateTo, setPatient }) => {
     }
   };
 
-  const getasset = async (patient) => {
-    const res = await getPatientAsset(patient.userID);
-    if (res.data.ok) {
-      setPatient({ infos: patient, records: res.data.message });
-      navigateTo("PatientProfile");
-    } else {
-    }
-  };
+
   return (
     <section className="mainPage patientsSection">
       <div className="filterSection">
@@ -61,6 +54,9 @@ const Patients = ({ navigateTo, setPatient }) => {
           </div>
 
          
+        </div>
+        <div onClick={fetchUsers} className="Btn2  flex_center">
+          <h1 className="filterText btnText">Refresh</h1>
         </div>
       </div>
 
@@ -121,9 +117,7 @@ const Patients = ({ navigateTo, setPatient }) => {
                 >
                   <AddCircleIcon sx={{ color: "#3F7FBF" }} />
                 </div>
-                <div className="iconContainer">
-                  <DeleteIcon sx={{ color: "#D42A2A" }} />
-                </div>
+               
               </h2>
             </div>
           </div>

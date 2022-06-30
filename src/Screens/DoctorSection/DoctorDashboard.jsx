@@ -14,8 +14,8 @@ const DoctorSection = ({setCurrentPage,signOut}) => {
       <DoctorSideBar  signOut={signOut}  navigateTo={navigateTo} setCurrentPage={setCurrentPage}/>
       <div className="main">
         {currentPage == "Patients" && <Patients navigateTo={navigateTo} setPatient={setPatient} />}
-        {currentPage == "PatientProfile" && <PatientProfile setAllRecords={setRecords} Patient={Patient} navigateTo={navigateTo} />}
-        {currentPage == "Records" && <Records Records={AllRecords} Patient={Patient} navigateTo={navigateTo} />}
+        {currentPage == "PatientProfile" && <PatientProfile setPatient={setPatient} setAllRecords={setRecords} Patient={Patient} navigateTo={navigateTo} />}
+        {currentPage == "Records" && <Records setPatient={setPatient} setAllRecords={setRecords} Records={AllRecords} Patient={Patient} navigateTo={navigateTo} />}
       </div>
     </section>
   );

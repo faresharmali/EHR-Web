@@ -123,6 +123,9 @@
 /*PatientSection  styling*/
 .PatientSection {
 }
+.btnText{
+  color:#fff !important
+}
 .mainContainer {
   width: 100%;
   display: grid;
@@ -154,6 +157,16 @@
   width: 160px;
   height: 45px;
   background-color: #00a77a;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Cairo", sans-serif;
+}
+.Btn2 {
+  width: 160px;
+  height: 45px;
+  background-color: #3F7FBF;
   color: #fff;
   font-size: 18px;
   border-radius: 10px;

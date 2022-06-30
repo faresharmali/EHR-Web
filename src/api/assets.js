@@ -1,4 +1,4 @@
-const api = "http://192.168.106.13:8080/api";
+const api = "http://192.168.100.3:8080/api";
 const axios = require("axios");
 export const CreateAsset = async (token,patientID,data) => {
   try {

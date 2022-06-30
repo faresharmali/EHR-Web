@@ -4,7 +4,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { getPatients, getPatientAsset } from "../../api/doctor";
 import RadioModal from "../../Components/Modals/RadioModal";
 import RecordModal from "../../Components/Modals/RecordModal";
-const Records = ({ navigateTo, Patient }) => {
+const Records = ({ navigateTo, Patient,setAllRecords }) => {
   const [PatientList, setPatientList] = useState([]);
   const [selectedRecord, setselectedRecord] = useState({});
   const [RadioLink, setRadioLink] = useState({});
@@ -24,7 +24,6 @@ const Records = ({ navigateTo, Patient }) => {
     setRadioLink(Link);
     setshowRadioModal(true);
   };
-  console.log("alll", Patient.records.slice(0, Patient.records.length - 1));
   return (
     <section className="mainPage patientsSection">
       <div className="filterSection">
@@ -37,7 +36,6 @@ const Records = ({ navigateTo, Patient }) => {
             <h1 className="filterText">Analysis</h1>
           </div>
         </div>
-        <input className="searchInput" type="text" placeholder="search" />
       </div>
 
       <div className="patientstable">
@@ -73,10 +71,11 @@ const Records = ({ navigateTo, Patient }) => {
                 inputProps={{ "aria-label": "controlled" }}
               />
             </div>
+  
             <div className="tableColumn">
               <h2 className="columnItem">
                 {" "}
-              
+                {record.lastVisits.slice(1,11)}
               </h2>
             </div>
             <div className="tableColumn">
@@ -110,6 +109,7 @@ const Records = ({ navigateTo, Patient }) => {
           OpenRadio={OpenRadio}
           Record={selectedRecord}
           setShowModal={setshowRecordModal}
+          
         />
       )}
       {showRadioModal && (

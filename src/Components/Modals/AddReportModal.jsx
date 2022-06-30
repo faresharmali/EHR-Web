@@ -4,9 +4,8 @@ import Button from "@mui/material/Button";
 
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { CreateAsset } from "../../api/assets";
-const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
-  const [errorMessageVisible, setErrorMessageVisibility] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+const AddReportModal = ({ setShowModal, patientID,fetchData }) => {
+
 
   const [userInput, setUserInput] = useState({
     Diagnosis: "",
@@ -18,7 +17,7 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
     BloodGroup: "",
     report: "",
     glucose: "",
-
+    type:"report",
     lastVisits: JSON.stringify(new Date()),
   });
   const handleUserInput = (input, fieldName) => {
@@ -30,9 +29,9 @@ const AddReportModal = ({ setShowModal, fetchUsers, patientID }) => {
       patientID,
       userInput
     );
-    console.log(res);
     if (res.data.ok) {
       setShowModal(false);
+      fetchData()
     } else {
       alert("error");
     }
